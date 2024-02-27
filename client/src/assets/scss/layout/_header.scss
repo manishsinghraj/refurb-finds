@@ -1,0 +1,118 @@
+@use "../utils";
+
+.container {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 0 40px;
+    color: utils.$color-white;
+    border-bottom: 2px solid utils.$color-cyan-lightest;
+
+    .header {
+        column-gap: 1em;
+        display: flex;
+
+        &__logo {
+            display: flex;
+
+            img {
+                width: 85px;
+                height: 80px;
+                filter: invert(100%);
+            }
+
+            &-text-span {
+                color: utils.$color-cyan-lightest;
+            }
+        }
+
+        &__search {
+            display: flex;
+            align-items: center;
+
+            &__box {
+                min-width: 500px;
+                display: flex;
+                align-items: center;
+                height: 40px;
+                border: 1px solid utils.$color-white;
+                border-radius: 15px;
+
+                &-input {
+                    color: utils.$color-white;
+                    outline: none;
+                    border: none;
+                    background: transparent;
+                    width: 100%;
+                    font-size: 20px;
+                }
+
+                &-icon {
+                    font-size: 30px;
+                    margin: 0 10px;
+                }
+            }
+        }
+
+        &__navigation {
+            display: flex;
+            align-items: center;
+            column-gap: 3em;
+
+            &__menu {
+                column-gap: 3em;
+                display: flex;
+                align-items: center;
+                list-style: none;
+            }
+
+            &__active {
+                font-weight: 700;
+                color: utils.$color-cyan-lightest;
+            }
+
+            &__icons {
+                font-size: 25px;
+                display: flex;
+                align-items: center;
+                column-gap: 3em;
+
+
+                &__like,
+                &__cart {
+                    position: relative;
+
+                    &:active {
+                        color: utils.$color-red;
+                    }
+
+                    &__badge {
+                        position: absolute;
+                        bottom: 70%;
+                        left: 60%;
+                        border-radius: 50%;
+                        width: 25px;
+                        height: 25px;
+                        background-color: utils.$color-white;
+                        color: utils.$color-black;
+                        font-weight: 700;
+                        font-size: 0.8rem;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        z-index: 10;
+                    }
+                }
+            }
+
+            li {
+                cursor: pointer;
+            }
+
+            &__active:active {
+                font-weight: 700;
+            }
+
+        }
+
+    }
+}
