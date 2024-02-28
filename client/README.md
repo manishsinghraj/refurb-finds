@@ -50,3 +50,8 @@ watch scss and build it
 ![alt text](image.png)
 
 <hr>
+
+# HOME
+
+1. # Banner
+2. # Product List

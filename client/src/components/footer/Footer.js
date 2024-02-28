@@ -1,9 +1,17 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import { FaLocationDot, FaPhone } from "react-icons/fa6";
 import { RiMailFill } from "react-icons/ri";
 
 export const Footer = () => {
+
+  const [currentYear, setCurrentYear] = useState("");
+
+  useEffect(() => {
+    const date = new Date();
+    setCurrentYear(date.getFullYear());
+  }, []);
+
   return (
     <>
       <div className='footer'>
@@ -14,6 +22,7 @@ export const Footer = () => {
           </div>
           <div className='footer__left__about'>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum adipisci recusandae numquam tenetur voluptate quia quisquam odit consequuntur ex aut! Sit sint odit quidem iure, deserunt perferendis quibusdam quo fugiat?</p>
+            <p>© {currentYear} RefurbFinds, Inc.</p>
           </div>
         </div>
 
@@ -31,7 +40,6 @@ export const Footer = () => {
 
 
         <div className='footer__right'>
-
           <div className='footer__right__links'>
             <p>Quick links</p>
             <Link to={"/home"}><li>Home</li></Link>

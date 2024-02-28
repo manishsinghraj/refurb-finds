@@ -1,0 +1,64 @@
+@use "../../utils";
+
+.product-wrapper {
+
+    background: rgba(0, 0, 0, 0.12);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(4.8px);
+    -webkit-backdrop-filter: blur(4.8px);
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    padding: 20px;
+
+
+
+    .product {
+
+        &-heading {
+            font-size: 30px;
+        }
+
+        // &-items {
+        //     width: 100%;
+        //     height: 500px;
+        //     display: flex;
+        //     gap: 1rem;
+        //     align-items: center;
+        //     padding: 0 15px;
+        // }
+
+        &-card {
+            display: flex;
+            flex-direction: column;
+            background-color: utils.$color-purple-light-mid;
+            height: 450px;
+            max-width: 250px;
+            border-radius: 10px;
+
+            img {
+                width: 250px;
+                height: 250px;
+            }
+        }
+
+        &-details {
+            padding: 10px;
+            color: utils.$color-white;
+        }
+
+        &-price {
+            font-size: 25px;
+        }
+
+        &-rating {
+            display: flex;
+            justify-content: flex-start;
+            gap: 0.5em;
+        }
+
+        &-rating .star-icon {
+            color: utils.$color-yellow;
+            font-size: 20px;
+        }
+    }
+}

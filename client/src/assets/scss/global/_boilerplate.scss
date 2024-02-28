@@ -18,10 +18,36 @@ body {
     font-family: utils.$font;
     background-color: utils.$color-black-light;
     color: utils.$color-white;
+    position: relative;
 }
 
+.watermark {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -10;
+}
 
+.watermark-logo {
+    width: 85px;
+    height: 80px;
+    filter: invert(100%);
+    margin-right: 10px;
 
+}
+
+.watermark-text {
+    font-size: 45px;
+
+    &-span {
+        color: utils.$color-cyan-lightest;
+    }
+
+}
 
 // ul {
 //     list-style: none;
