@@ -1,5 +1,7 @@
+@use "../utils";
+
 .footer {
-    background-color: black;
+    background-color: utils.$color-black;
     padding: 20px 40px;
     display: flex;
     column-gap: 2em;
