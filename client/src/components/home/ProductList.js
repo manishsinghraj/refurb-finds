@@ -10,7 +10,7 @@ export const ProductList = ({ products }) => {
     infinite: true,
     speed: 500,
     slidesToShow: 5,
-    slidesToScroll: 1
+    slidesToScroll: 2
   };
 
   return (

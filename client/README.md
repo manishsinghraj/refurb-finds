@@ -26,6 +26,7 @@ watch scss and build it
 
 - create Home.js
 - create Shop.js
+- create ProductDetails.js
 
 
 # components
@@ -34,6 +35,11 @@ watch scss and build it
 - create header folder - Header.js
 - create footer folder - Footer.js
 - create layout folder - Layout.js
+- creater home Folder - 
+    - Carousel.js
+    - ProductList.js
+    - ProductCard.js
+    - StarRating.js
 
 # router
 
@@ -44,14 +50,30 @@ watch scss and build it
 # connect
 
 - App.js add Layout.js component 
+
+
+# redux
+
+- create Banner Folder - 
+    - bannerAction.js
+    - bannerReducer.js
+    - bannerTypes.js
+
+- create store.js
+
 <br>
 
  
 ![alt text](image.png)
 
+![alt text](image-1.png)
+
 <hr>
 
 # HOME
 
-1. # Banner
-2. # Product List
+1. # Banner (Carousel)
+2. # Product Listing
+
+
+# PRODUCT-DETAILS

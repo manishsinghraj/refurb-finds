@@ -4,16 +4,17 @@
 
     background: rgba(0, 0, 0, 0.12);
     border-radius: 16px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 30px utils.$color-purple-light-mid;
     backdrop-filter: blur(4.8px);
     -webkit-backdrop-filter: blur(4.8px);
-    border: 1px solid rgba(0, 0, 0, 0.3);
+    border: 1px solid utils.$color-cyan-light;
     padding: 20px;
 
+    margin-bottom: 80px;
 
 
     .product {
-
+        margin: 20px;
         &-heading {
             font-size: 30px;
         }

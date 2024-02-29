@@ -17,7 +17,8 @@ const navLinks = [
   },
   {
     path: "cart",
-    name: "Cart"
+    name: "Cart",
+    span: <span className='header__navigation__icons__cart__badge'>20</span>
   }
 ]
 
