@@ -5,7 +5,7 @@ const initialState = {
     slide: 0
 }
 
-export const bannerReducer = (state = initialState, action) => {
+const bannerReducer = (state = initialState, action) => {
     switch (action.type) {
         case PREVIOUS:
             return {
@@ -22,3 +22,5 @@ export const bannerReducer = (state = initialState, action) => {
         default: return state
     }
 }
+
+export default bannerReducer;

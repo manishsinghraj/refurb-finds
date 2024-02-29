@@ -6,7 +6,7 @@ import { nextSlide, prevSlide } from '../../redux/banner/bannerActions.js';
 
 export const Carousel = () => {
     const slides = data || null;
-    const currentSlide = useSelector((state) => state.slide);
+    const currentSlide = useSelector((state) => state.banner.slide);
     const dispatch = useDispatch();
 
     const handlePrevious = () => {
