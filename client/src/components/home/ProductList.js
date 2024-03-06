@@ -4,6 +4,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { ProductCard } from './ProductCard';
 
+
 export const ProductList = ({ products }) => {
   const settings = {
     dots: true,

@@ -1,43 +1,100 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { IoSearchSharp } from "react-icons/io5";
 import { FaRegHeart } from "react-icons/fa";
 import { LuShoppingCart } from "react-icons/lu";
 import { FaRegCircleUser } from "react-icons/fa6";
-import { NavLink } from "react-router-dom"
+import { NavLink } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { searchProducts } from '../../redux/filters/filtersAction';
+import { SearchList } from './SearchList';
 
 
-const navLinks = [
-  {
-    path: "home",
-    name: "Home"
-  },
-  {
-    path: "shop",
-    name: "Shop"
-  },
-  {
-    path: "cart",
-    name: "Cart",
-    span: <span className='header__navigation__icons__cart__badge'>20</span>
-  }
-]
+
 
 const Header = () => {
+
+
+
+
+
+
+
+  const [searchText, setSearchText] = useState("");
+
+  const dispatch = useDispatch();
+  const search = useSelector((state) => state.filters.search);
+  const products = useSelector((state) => state.data.products);
+  const cartItemsCount = useSelector((state) => state.cart?.cart?.length || 0)
+
+  const filteredSearchProduct = products.filter((item) => {
+    return item.title.toLowerCase().includes(search?.toLowerCase());
+  });
+
+
+  const handleSearch = (e) => {
+    const searchText = e.target.value;
+    setSearchText(searchText);
+    dispatch(searchProducts(searchText));
+  }
+
+
+  const clearSearchText = () => {
+    setSearchText("");
+  }
+
+
+  const navLinks = [
+    {
+      path: "home",
+      name: "Home",
+      exclude: false
+    },
+    {
+      path: "shop",
+      name: "Shop",
+      exclude: false
+    },
+    {
+      path: "cart",
+      name: <span className='header__navigation__icons__cart'><LuShoppingCart />
+        {cartItemsCount !== 0 ? <span className='header__navigation__icons__cart__badge'>{cartItemsCount}</span> : null}
+      </span>,
+      exclude: true
+    },
+    {
+      path: "like",
+      name: <span className='header__navigation__icons__like'><FaRegHeart />
+        <span className='header__navigation__icons__like__badge'>20</span>
+      </span>,
+      exclude: true
+    },
+    {
+      path: "user",
+      name: <span className='header__navigation__icons__userlogo'><FaRegCircleUser /></span>,
+      exclude: true
+    },
+
+  ]
+
   return (
     <>
       <div className='container'>
-
         <header className='header'>
 
-          <div className='header__logo'>
-            <img src="refurb-logo.png" alt='refurb-logo'></img>
-            <h1 className='header__logo-text'>Refurb<span className='header__logo-text-span'>Finds</span></h1>
-          </div>
+          <NavLink to={`/home`}>
+            <div className='header__logo'>
+              <img src="refurb-logo.png" alt='refurb-logo'></img>
+              <h1 className='header__logo-text'>Refurb<span className='header__logo-text-span'>Finds</span></h1>
+            </div>
+          </NavLink>
 
           <div className='header__search'>
             <div className='header__search__box'>
               <IoSearchSharp className='header__search__box-icon' />
-              <input type='text' placeholder='Search for anything' className='header__search__box-input'></input>
+              <input type='text' placeholder='Search for anything' className='header__search__box-input'
+                value={searchText} onChange={handleSearch} ></input>
+              {searchText &&
+                <SearchList filteredSearchProduct={filteredSearchProduct} searchText={searchText} clearSearchText={clearSearchText} />}
             </div>
           </div>
 
@@ -45,24 +102,20 @@ const Header = () => {
 
         <nav className='header__navigation'>
           <ul className='header__navigation__menu'>
-            {
-              navLinks.map((item, index) =>
-              (<li key={index} >
-                <NavLink to={item.path} className={(navClass) => navClass.isActive ? "header__navigation__active" : ""}>{item.name}</NavLink>
+            {navLinks.map((item, index) => (
+              <li key={index}>
+                <NavLink
+                  to={item.path}
+                  className={(navClass) =>
+                    `${navClass.isActive ? 'header__navigation__active' : ''} ${item.exclude ? 'icon' : ''
+                    }`
+                  }
+                >
+                  {item.name}
+                </NavLink>
               </li>
-              ))
-            }
+            ))}
           </ul>
-
-          <div className='header__navigation__icons'>
-            <span className='header__navigation__icons__cart'><LuShoppingCart />
-              <span className='header__navigation__icons__cart__badge'>20</span>
-            </span>
-            <span className='header__navigation__icons__like'><FaRegHeart />
-              <span className='header__navigation__icons__like__badge'>20</span>
-            </span>
-            <span className='header__navigation__icons__userlogo'><FaRegCircleUser /></span>
-          </div>
         </nav>
 
       </div>

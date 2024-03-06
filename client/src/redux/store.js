@@ -1,16 +1,24 @@
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { thunk } from 'redux-thunk';
 import bannerReducer from "./banner/bannerReducer";
-
 import cartReducer from "./cart/cartReducer";
+import { composeWithDevTools } from '@redux-devtools/extension';
+import { dataReducer } from './data/dataReducer';
+import { filterReducer } from './filters/filterReducer';
+import { likeReducer } from './like/likeReducer';
 
 // Combine your reducers here
 const rootReducer = combineReducers({
     banner: bannerReducer,
-    cart: cartReducer
+    cart: cartReducer,
+    filters: filterReducer,
+    data: dataReducer,
+    like: likeReducer
 });
 
 
-const store = createStore(rootReducer, applyMiddleware(thunk));
+const store = createStore(rootReducer, composeWithDevTools(
+    applyMiddleware(thunk),
+),);
 
 export default store; 

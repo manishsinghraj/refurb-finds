@@ -1,4 +1,4 @@
-import { ADD_TO_CART, UPDATE_CART_ITEM_QUANTITY } from "./cartTypes";
+import { ADD_TO_CART, REMOVE_CART_ITEM, UPDATE_CART_ITEM_QUANTITY } from "./cartTypes";
 
 const initialState = {
     cart: [],
@@ -47,6 +47,14 @@ const cartReducer = (state = initialState, action) => {
                 // If the item does not exist in the cart, do nothing and return the current state
                 return state;
 
+            }
+
+        case REMOVE_CART_ITEM:
+
+            const updatedCart = state.cart.filter((item) => (item.id !== action.payload));
+            return {
+                ...state,
+                cart: updatedCart
             }
 
         default: return state;

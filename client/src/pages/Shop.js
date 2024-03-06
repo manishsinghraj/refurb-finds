@@ -1,7 +1,14 @@
-import React from 'react'
+import React from 'react';
+import { useSelector } from "react-redux";
+import { ShopProductList } from '../components/shop/ShopProductList';
 
 export const Shop = () => {
-  return (
-    <div>Shop</div>
+
+ return (
+    <>
+      <div className='shop__container'>
+        <ShopProductList />
+      </div>
+    </>
   )
 }
