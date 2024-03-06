@@ -27,6 +27,8 @@ watch scss and build it
 - create Home.js
 - create Shop.js
 - create ProductDetails.js
+- Cart.js
+- Shop.js
 
 
 # components
@@ -40,6 +42,11 @@ watch scss and build it
     - ProductList.js
     - ProductCard.js
     - StarRating.js
+- creater Cart Folder - 
+    - CartList.js
+    - CartCard.js
+- create shop Folder -
+    - ShopProductList.js
 
 # router
 
@@ -54,11 +61,20 @@ watch scss and build it
 
 # redux
 
-- create Banner Folder - 
+- create banner Folder - 
     - bannerAction.js
     - bannerReducer.js
     - bannerTypes.js
-
+- create cart Folder - 
+    - cartAction.js
+    - cartReducer.js
+    - cartTypes.js
+- create data Folder - 
+    - dataAction.js
+    - dataReducer.js
+    - dataTypes.js
+    
+    
 - create store.js
 
 <br>
@@ -71,9 +87,18 @@ watch scss and build it
 <hr>
 
 # HOME
-
 1. # Banner (Carousel)
 2. # Product Listing
 
 
 # PRODUCT-DETAILS
+1. # ProductCard.js
+
+# CART
+1. # CartList.js
+2. # CartCard.js
+
+
+# SHOP
+1. # ShopProductList.js
+2. # ProductCard.js

@@ -3,6 +3,7 @@
 html {
     box-sizing: border-box;
     font-size: 100%;
+    
 }
 
 *,
@@ -18,7 +19,8 @@ body {
     font-family: utils.$font;
     background-color: utils.$color-black-light;
     color: utils.$color-white;
-    position: relative;
+    min-height: 100vh;
+    
 }
 
 .watermark {
@@ -48,6 +50,8 @@ body {
     }
 
 }
+
+
 
 // ul {
 //     list-style: none;

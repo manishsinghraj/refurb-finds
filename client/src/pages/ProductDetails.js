@@ -2,7 +2,7 @@ import React from 'react';
 import { useParams } from "react-router-dom";
 import products from "../assets/data/products/products.json";
 import StarRating from '../components/home/StarRating';
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addToCart } from '../redux/cart/cartActions';
 
 

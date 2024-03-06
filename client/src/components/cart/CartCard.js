@@ -1,7 +1,7 @@
 import React from 'react';
 import { MdDelete } from "react-icons/md";
-import { useSelector, useDispatch } from "react-redux";
-import { updateCartItemQuantity } from '../../redux/cart/cartActions';
+import {  useDispatch } from "react-redux";
+import { removeCartItem, updateCartItemQuantity } from '../../redux/cart/cartActions';
 
 export const CartCard = ({ item }) => {
 
@@ -10,6 +10,10 @@ export const CartCard = ({ item }) => {
     const handleQuantityChange = (e) => {
         const newQuantity = parseInt(e.target.value);
         dispatch(updateCartItemQuantity(item.id, newQuantity));
+    }
+
+    const handleRemoveCartItem = () => {
+        dispatch(removeCartItem(item.id));
     }
 
     return (
@@ -31,7 +35,7 @@ export const CartCard = ({ item }) => {
                 <div className='shopping__cart-item-price'>
                     <div >
                         <span>₹ {item.price}</span>
-                        <div><MdDelete className='icon' /></div>
+                        <div><MdDelete className='icon' onClick={handleRemoveCartItem} /></div>
                     </div>
                 </div>
             </div>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { FaArrowCircleLeft, FaArrowCircleRight } from "react-icons/fa";
 import { data } from "../../assets/data/slides/slides.js";
 import { useSelector, useDispatch } from "react-redux"
