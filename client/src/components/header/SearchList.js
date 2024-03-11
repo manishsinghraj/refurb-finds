@@ -15,14 +15,13 @@ export const SearchList = ({ filteredSearchProduct, searchText, clearSearchText 
                 return (
                     <>
                         <NavLink to={`/shop/${item.id}`}>
-                            <div className='search__list-item' onClick={clearSearchText}>
+                            <div key={index} className='search__list-item' onClick={clearSearchText}>
                                 <img src={item.images[0]} alt={item.title}/>
                                 <p>{item.title}</p>
                             </div >
                         </NavLink>
                     </>
                 )
-
             })}
         </div >
     )

@@ -1,6 +1,6 @@
 @use "../../utils";
 
-.shopping__cart {
+.like {
     margin: 40px 80px;
 
     &-container {
@@ -14,7 +14,15 @@
     }
 
     &-items {
-        border-bottom: 1px solid utils.$color-white;
+        padding: 20px;
+        border: 1px solid utils.$color-white;
+    }
+
+    &-heading {
+        text-align: center;
+        width: 100%;
+        background-color: utils.$color-white;
+        color: utils.$color-black;
     }
 
     &-item {
@@ -35,15 +43,12 @@
             min-width: 60%;
             margin-bottom: 45px;
 
+            &-heading {
+                color: utils.$color-white;
+            }
 
-            select {
-                background-color: utils.$color-white;
-                width: 60px;
-                height: 30px;
-                font-size: 20px;
-                padding: 0 5px;
-                margin: 5px;
-                border-radius: 10px;
+            &-description {
+                color: utils.$color-grey
             }
         }
 
@@ -65,9 +70,12 @@
             .icon {
                 cursor: pointer;
                 color: utils.$color-red;
-                ;
             }
         }
+    }
+
+    .fade {
+        opacity: 0.4;
     }
 
     &-subtotal {
@@ -77,5 +85,26 @@
         background-color: utils.$color-white;
         color: utils.$color-black;
         margin: 20px 0;
+    }
+
+    .add-to-cart {
+        width: 150px;
+        height: 50px;
+        font-size: 20px;
+        border: none;
+        border-radius: 5px;
+        outline: 1px solid utils.$color-black;
+        color: utils.$color-white;
+        background-color: utils.$color-purple-light-mid;
+        cursor: pointer;
+    }
+
+    .add-to-cart:hover {
+        background-color: utils.$color-purple-mid;
+    }
+
+    .add-to-cart:active {
+        outline: 2px solid utils.$color-cyan-lightest;
+        outline-offset: 2px;
     }
 }

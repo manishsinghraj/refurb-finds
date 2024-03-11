@@ -14,7 +14,6 @@
             flex-wrap: wrap;
         }
 
-
         &__logo {
             display: flex;
 
@@ -29,8 +28,6 @@
     &__mid {
         min-width: 20%;
 
-
-
         &__logo {
             display: flex;
             gap: 1em;
@@ -40,7 +37,6 @@
                 width: 150px;
             }
         }
-
     }
 
     &__right {
@@ -50,9 +46,9 @@
 
         &__links {
 
-
             li {
                 list-style: none;
+                text-decoration: underline;
                 margin-bottom: 10px;
             }
         }

@@ -44,10 +44,10 @@ export const Footer = () => {
             <p>Quick links</p>
             <Link to={"/home"}><li>Home</li></Link>
             <Link to={"/shop"}><li>Shop</li></Link>
-            <Link to={"/home"}><li>login</li></Link>
-            <Link to={"/home"}><li>signup</li></Link>
-            <Link to={"/home"}><li>about</li></Link>
-            <Link to={"/home"}><li>privacy</li></Link>
+            <Link to={"/signin"}><li>Signin</li></Link>
+            <Link to={"/signup"}><li>Signup</li></Link>
+            <Link to={"/home"}><li>About</li></Link>
+            <Link to={"/home"}><li>Privacy</li></Link>
           </div>
           <div className='footer__right__contacts'>
             <p>Contacts</p>

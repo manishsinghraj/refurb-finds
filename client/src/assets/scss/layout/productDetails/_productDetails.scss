@@ -23,13 +23,11 @@
     &-about {
         padding: 10px;
         width: 100%;
-        background-color: #000000;
-        color: rgb(255, 255, 255);
-
+        background-color: utils.$color-black;
+        color: utils.$color-white;
     }
 
     &-rating {
-
         display: flex;
         justify-content: flex-start;
         gap: 0.5em;
@@ -38,7 +36,6 @@
             color: utils.$color-yellow;
             font-size: 20px;
         }
-
     }
 
     &-price {
@@ -55,8 +52,8 @@
             font-size: 20px;
             border : none;
             border-radius: 5px;
-            outline: 1px solid black;
-            color: white;
+            outline: 1px solid utils.$color-black;
+            color: utils.$color-white;
             background-color: utils.$color-purple-light-mid;
             cursor: pointer;
         }
@@ -66,7 +63,6 @@
         }
 
         .add-to-cart:active {
-            // transform: scale(0.9, 0.9);
             outline: 2px solid utils.$color-cyan-lightest;
             outline-offset: 2px;
         }

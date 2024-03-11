@@ -3,7 +3,7 @@
 
 # Package installation
 
-`npm i axios redux react-redux redux-thunk react-router-dom @redux-devtools/extension react-helmet react-icons`
+`npm i axios redux react-redux redux-thunk react-router-dom @redux-devtools/extension react-helmet react-icons react-slick slick-carousel`
 
 <hr>
 
@@ -24,11 +24,15 @@ watch scss and build it
 
 # pages
 
-- create Home.js
-- create Shop.js
-- create ProductDetails.js
-- Cart.js
+- Home.js
 - Shop.js
+- ProductDetails.js
+- Cart.js
+- Like.js
+- SignUp.js
+- SignIn.js
+- Orders.js
+- Account.js
 
 
 # components
@@ -47,6 +51,13 @@ watch scss and build it
     - CartCard.js
 - create shop Folder -
     - ShopProductList.js
+- create like Folder -
+    - LikeList.js
+    - LikeCard.js
+- create sign Folder -
+    - FormInputs.js
+- create utils Folder -
+    - ScrollToTop.js
 
 # router
 
@@ -73,7 +84,14 @@ watch scss and build it
     - dataAction.js
     - dataReducer.js
     - dataTypes.js
-    
+- create filters Folder - 
+    - filterAction.js
+    - filterReducer.js
+    - filterTypes.js
+- create like Folder - 
+    - likeAction.js
+    - likeReducer.js
+    - likeTypes.js
     
 - create store.js
 
@@ -84,21 +102,25 @@ watch scss and build it
 
 ![alt text](image-1.png)
 
+![alt text](image-2.png)
+
 <hr>
 
 # HOME
 1. # Banner (Carousel)
 2. # Product Listing
 
-
 # PRODUCT-DETAILS
 1. # ProductCard.js
+
+# SHOP
+1. # ShopProductList.js
+2. # ProductCard.js
 
 # CART
 1. # CartList.js
 2. # CartCard.js
 
-
-# SHOP
-1. # ShopProductList.js
-2. # ProductCard.js
+# LIKE
+1. # LikeList.js
+2. # LikeCard.js
