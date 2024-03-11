@@ -13,6 +13,8 @@ export const ProductList = ({ products }) => {
     slidesToShow: 5,
     slidesToScroll: 2
   };
+  
+
 
   return (
     <div className='product-items'>

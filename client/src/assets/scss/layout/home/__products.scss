@@ -1,7 +1,6 @@
 @use "../../utils";
 
 .product-wrapper {
-
     background: rgba(0, 0, 0, 0.12);
     border-radius: 16px;
     box-shadow: 0 4px 30px utils.$color-purple-light-mid;
@@ -9,25 +8,14 @@
     -webkit-backdrop-filter: blur(4.8px);
     border: 1px solid utils.$color-cyan-light;
     padding: 20px;
-    
-
     margin-bottom: 80px;
-
 
     .product {
         margin: 20px;
+
         &-heading {
             font-size: 30px;
         }
-
-        // &-items {
-        //     width: 100%;
-        //     height: 500px;
-        //     display: flex;
-        //     gap: 1rem;
-        //     align-items: center;
-        //     padding: 0 15px;
-        // }
 
         &-card {
             display: flex;
@@ -44,13 +32,14 @@
         }
 
         &-details {
-            padding: 10px;
+            padding: 0 10px;
             color: utils.$color-white;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
         }
 
-        &-price {
-            font-size: 25px;
-        }
 
         &-rating {
             display: flex;
@@ -61,6 +50,22 @@
         &-rating .star-icon {
             color: utils.$color-yellow;
             font-size: 20px;
+        }
+    }
+    
+    .product-interact {
+        margin: 0;
+        padding: 0 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .product-price,.product__interact__icons__like  {
+            font-size: 25px;
+        }
+
+        .active {
+            color: utils.$color-red;
         }
     }
 }

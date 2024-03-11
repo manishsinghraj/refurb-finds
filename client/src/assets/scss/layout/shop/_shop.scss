@@ -3,8 +3,12 @@
 .shop__products {
     display: flex;
     margin: 20px;
-    background-color: rgb(81, 81, 81);
+    background-color: utils.$color-black;
     border-radius: 20px;
+    box-shadow: 0 4px 30px utils.$color-purple-light-mid;
+    backdrop-filter: blur(4.8px);
+    -webkit-backdrop-filter: blur(4.8px);
+    border: 1px solid utils.$color-cyan-light;
 
     .filter-section {
         padding: 0 20px;
@@ -12,16 +16,17 @@
         flex-direction: column;
         text-align: center;
         min-width: 300px;
-        background-color: rgb(0, 0, 0);
-        
+        background-color: utils.$color-black;
+        border-top-left-radius: 20px;
+        border-bottom-left-radius: 20px;
+
         .filters {
             position: sticky;
-            top: 0;
+            top: 90px;
             display: flex;
             flex-direction: column;
             align-items: center;
             margin-bottom: 20px;
-
         }
 
         .customer__review {
@@ -52,12 +57,12 @@
             }
 
             .active {
-                border: 1px solid yellow;
+                border: 1px solid utils.$color-yellow;
             }
         }
 
         .product__price__range {
-            color: white;
+            color: utils.$color-white;
 
             .product__price__range-value {
                 display: flex;
@@ -65,12 +70,13 @@
             }
         }
 
-        .product__sort{
+        .product__sort {
             display: flex;
             flex-direction: column;
-            margin:  40px 0;
+            margin: 40px 0;
 
-            select, option {
+            select,
+            option {
                 width: 150px;
                 height: 20px;
                 border: none;
@@ -90,7 +96,7 @@
 
         .product__result-count {
             display: flex;
-            justify-content: flex-end;
+            justify-content: flex-start;
             padding-right: 2em;
         }
 
@@ -114,8 +120,12 @@
             }
 
             &-details {
-                padding: 10px;
+                padding: 0 10px;
                 color: utils.$color-white;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                height: 100%;
             }
 
             &-price {
@@ -133,8 +143,22 @@
                 font-size: 20px;
             }
         }
-
     }
 
+    .product-interact {
+        margin: 0;
+        padding: 0 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
 
+        .product-price,
+        .product__interact__icons__like {
+            font-size: 25px;
+        }
+
+        .active {
+            color: utils.$color-red;
+        }
+    }
 }
