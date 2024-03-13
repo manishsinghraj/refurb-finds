@@ -1,7 +1,17 @@
-import React from 'react'
-import { NavLink } from 'react-router-dom'
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { signOutUser } from '../../redux/user/userAction';
 
 export const UserDropDown = ({ handleUserAccount }) => {
+    const userDetails = useSelector((state) => state.user.user);
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const handleSignOut = () => {
+        dispatch(signOutUser())
+        navigate('/signin');
+    };
 
     const dropDownList = [
         {
@@ -14,35 +24,38 @@ export const UserDropDown = ({ handleUserAccount }) => {
         },
         {
             path: "signin",
-            name: "SignOut"
+            name: "SignOut",
+            onClick: handleSignOut
         },
-    ]
+    ];
 
     return (
         <>
             <div className='header__navigation__signin'>
-                <NavLink to={'/signin'}>
-                    <button className='header__navigation__signin-button' onClick={handleUserAccount}>Sign in</button>
-                </NavLink>
-                <p>New customer ?
-                    <NavLink to={'/signup'}>
-                        <span onClick={handleUserAccount}> start here</span>
-                    </NavLink>
-                </p>
-            </div >
-            {
-                dropDownList.map((item, index) => {
-                    return (
-                        <div className='header__navigation__dropdownlist' onClick={handleUserAccount}>
-                            <NavLink to={`/${item.path}`}>
-                                <div key={index} className='header__navigation__dropdownlist-item'>
-                                    {item.name}
-                                </div>
+                {!userDetails ? (
+                    <>
+                        <NavLink to={'/signin'}>
+                            <button className='header__navigation__signin-button' onClick={handleUserAccount}>Sign in</button>
+                        </NavLink>
+                        <p>New customer ?
+                            <NavLink to={'/signup'}>
+                                <span onClick={handleUserAccount}> start here</span>
                             </NavLink>
+                        </p>
+                    </>
+                ) : (
+                <p>Hello {userDetails?.user?.name || "user"}</p>
+                )}
+            </div>
+            {userDetails && dropDownList.map((item, index) => (
+                <div key={index} className='header__navigation__dropdownlist' onClick={handleUserAccount}>
+                    <NavLink to={`/${item.path}`} onClick={item.onClick}>
+                        <div key={index} className='header__navigation__dropdownlist-item'>
+                            {item.name}
                         </div>
-                    )
-                })
-            }
+                    </NavLink>
+                </div>
+            ))}
         </>
-    )
-}
+    );
+};

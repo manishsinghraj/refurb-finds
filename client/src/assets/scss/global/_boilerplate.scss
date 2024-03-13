@@ -3,7 +3,7 @@
 html {
     box-sizing: border-box;
     font-size: 100%;
-    
+
 }
 
 *,
@@ -20,7 +20,7 @@ body {
     background-color: utils.$color-black-light;
     color: utils.$color-white;
     min-height: 100vh;
-    
+    position: relative;
 }
 
 .watermark {
@@ -48,9 +48,26 @@ body {
     &-span {
         color: utils.$color-cyan-lightest;
     }
-
 }
 
+.error {
+    position: fixed;
+    top: 120px;
+    left: 90%;
+    z-index: 1000000000000000000000;
+    transform: translate(-50%);
+}
+
+.error-btn {
+    width: 200px;
+    height: 70px;
+    border: none;
+    background-color: utils.$color-red;
+    border-radius: 5px;
+    outline: 1px solid utils.$color-white;
+    color: utils.$color-white;
+    font-size: 20px;
+}
 
 
 // ul {

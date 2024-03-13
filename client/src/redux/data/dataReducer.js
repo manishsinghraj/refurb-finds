@@ -1,6 +1,7 @@
-import { fetchProductsRequest, fetchProductsSuccess } from "./dataAction";
+import { fetchProductsFailure, fetchProductsRequest, fetchProductsSuccess } from "./dataAction";
 import { FETCH_PRODUCTS_FAILURE, FETCH_PRODUCTS_REQUEST, FETCH_PRODUCTS_SUCCESS } from "./dataTypes";
-import productsData from "../../assets/data/products/products.json";
+import axios from "axios";
+// import productsData from "../../assets/data/products/products.json";
 
 //State
 const initialState = {
@@ -41,26 +42,26 @@ export const dataReducer = (state = initialState, action) => {
 
 
 
-// export const fetchProducts = () => {
-//     return function (dispatch) {
-//         dispatch(fetchProductsRequest());
-//         axios.get("../client/src/assets/data/products/products.json")
-//             .then(response => {
-//                 const products = response.data;
-//                 console.log("products", products);
-//                 dispatch(fetchProductsSuccess(products));
-//             })
-//             .catch(error => {
-//                 dispatch(fetchProductsFailure(error.message));
-//             });
-//     };
-// };
-
-
-
 export const fetchProducts = () => {
     return function (dispatch) {
         dispatch(fetchProductsRequest());
-        dispatch(fetchProductsSuccess(productsData));
-    }
-}
+        axios.get("http://localhost:5000/api/products/getproducts/")
+            .then(response => {
+                const products = response.data;
+                console.log("products", products);
+                dispatch(fetchProductsSuccess(products));
+            })
+            .catch(error => {
+                dispatch(fetchProductsFailure(error?.response?.data?.message || error));
+            });
+    };
+};
+
+
+
+// export const fetchProducts = () => {
+//     return function (dispatch) {
+//         dispatch(fetchProductsRequest());
+//         dispatch(fetchProductsSuccess(productsData));
+//     }
+// }
