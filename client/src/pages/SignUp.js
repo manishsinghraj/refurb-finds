@@ -1,27 +1,37 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FormInputs } from '../components/sign/FormInputs';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { registerUser } from '../redux/user/userReducer';
+import { Error } from '../components/utils/Error';
 
 export const SignUp = () => {
 
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const error = useSelector((state) => state.user.error);
+    const isLoading = useSelector((state) => state.user.loading);
+    const user = useSelector((state) => state.user.user);
+
     const [values, setValues] = useState({
-        "username": "",
+        // "username": "",
+        "name": "",
         "email": "",
-        "fullname": "",
-        "birthday": "",
+        "phone": "",
+        // "birthday": "",
         "password": "",
         "confirmPassword": ""
     });
 
-    const [inputs, setInputs] = useState([
+    const inputs = [
         {
             id: 1,
-            name: "username",
+            name: "name",
             type: "text",
-            placeholder: "Username",
-            label: "Username",
-            errorMessage: "Username should be 3-16 character and shouldn't include any special character!",
-            pattern: "^[A-Za-z0-9]{3,16}$",
+            placeholder: "name",
+            label: "name",
+            errorMessage: "",
             required: true,
         },
         {
@@ -35,23 +45,15 @@ export const SignUp = () => {
         },
         {
             id: 3,
-            name: "fullname",
-            type: "text",
-            placeholder: "Fullname",
-            label: "Fullname",
-            errorMessage: "",
+            name: "phone",
+            type: "phone",
+            placeholder: "Phone",
+            label: "Phone",
+            errorMessage: "its should be valid phone number!",
             required: true,
         },
         {
             id: 4,
-            name: "birthday",
-            type: "date",
-            placeholder: "Birthday",
-            label: "Birthday",
-            errorMessage: "",
-        },
-        {
-            id: 5,
             name: "password",
             type: "password",
             placeholder: "Password",
@@ -61,7 +63,7 @@ export const SignUp = () => {
             required: true,
         },
         {
-            id: 6,
+            id: 5,
             name: "confirmPassword",
             type: "password",
             placeholder: "ConfirmPassword",
@@ -70,59 +72,59 @@ export const SignUp = () => {
             pattern: values.password,
             required: true,
         }
-    ])
+    ]
 
 
-    const handleSubmit = (e) => {
+    useEffect(() => {
+        if (!error && user) { // If there's no error and user exists
+            navigate('/home');
+        }
+    }, [error, user, navigate]);
+
+    const handleRegisterUser = (e) => {
         e.preventDefault();
+        dispatch(registerUser(values));
     }
 
     const onChange = (e) => {
         setValues({ ...values, [e.target.name]: e.target.value })
     }
 
-    console.log(values);
-
-
-    const handleAccountCreate = () => {
-        setInputs(inputs.map(input => ({
-            ...input,
-            required: false
-        })));
-
+    const handleSignIn = () => {
         setValues({
             ...values,
-            username: "",
+            name: "",
             email: "",
-            fullname: "",
-            birthday: "",
+            phone: "",
             password: "",
             confirmPassword: ""
         });
     };
 
 
-
     return (
-        <section className='signup'>
-            <div className='signup-container'>
-                <div className='form-container'>
-                    <form onSubmit={handleSubmit}>
-                        <h1>Create Account</h1>
-                        {inputs.map((input) => (
-                            <FormInputs key={input.id} {...input} value={values[input.name]} onChange={onChange}></FormInputs>
-                        ))}
-                        <button>Submit</button>
-                        <hr />
-                        <div className='signin-account'>
-                            <span className='signin-account-span'>Already have an account?</span>
-                            <NavLink to={'/signin'}>
-                                <button className='signin-account-button' onClick={handleAccountCreate}>Sign In</button>
-                            </NavLink>
-                        </div>
-                    </form>
+        <>
+            <section className='signup'>
+                <div className='signup-container'>
+                    <div className='form-container'>
+                        <form onSubmit={handleRegisterUser}>
+                            <h1>Create Account</h1>
+                            {inputs.map((input) => (
+                                <FormInputs key={input.id} {...input} value={values[input.name]} onChange={onChange}></FormInputs>
+                            ))}
+                            <button className='submit-btn'>{isLoading ? "..." : "Submit"}</button>
+                            <hr />
+                            <div className='signin-account'>
+                                <span className='signin-account-span'>Already have an account?</span>
+                                <NavLink to={'/signin'}>
+                                    <button className='signin-account-btn' onClick={handleSignIn}>Sign In</button>
+                                </NavLink>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
+            {error && <Error error={error} />}
+        </>
     )
 }

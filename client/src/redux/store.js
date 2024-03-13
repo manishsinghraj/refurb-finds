@@ -6,6 +6,7 @@ import { composeWithDevTools } from '@redux-devtools/extension';
 import { dataReducer } from './data/dataReducer';
 import { filterReducer } from './filters/filterReducer';
 import { likeReducer } from './like/likeReducer';
+import userReducer from './user/userReducer';
 
 // Combine your reducers here
 const rootReducer = combineReducers({
@@ -13,7 +14,8 @@ const rootReducer = combineReducers({
     cart: cartReducer,
     filters: filterReducer,
     data: dataReducer,
-    like: likeReducer
+    like: likeReducer,
+    user : userReducer
 });
 
 

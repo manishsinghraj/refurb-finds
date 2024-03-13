@@ -9,7 +9,7 @@ export const SignIn = () => {
     "password": "",
   });
 
-  const [inputs, setInputs] = useState([
+  const inputs = [
     {
       id: 1,
       name: "email",
@@ -29,7 +29,7 @@ export const SignIn = () => {
       required: true,
     },
 
-  ])
+  ]
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -42,10 +42,6 @@ export const SignIn = () => {
   console.log(values);
 
   const handleAccountCreate = () => {
-    setInputs(inputs.map(input => ({
-      ...input,
-      required: false
-    })));
 
     setValues({
       ...values,
@@ -66,12 +62,12 @@ export const SignIn = () => {
             {inputs.map((input) => (
               <FormInputs key={input.id} {...input} value={values[input.name]} onChange={onChange}></FormInputs>
             ))}
-            <button>Submit</button>
+            <button className='submit-btn'>Submit</button>
             <hr />
             <div className='create-account'>
               <span className='create-account-span'>New to RefurbFinds?</span>
               <NavLink to={'/signup'}>
-                <button className='create-account-button' onClick={handleAccountCreate}>Create Account</button>
+                <button className='create-account-btn' onClick={handleAccountCreate}>Create Account</button>
               </NavLink>
             </div>
           </form>

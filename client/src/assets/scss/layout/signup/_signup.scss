@@ -28,7 +28,7 @@
       width: 600px;
     }
 
-    button {
+    .submit-btn {
       width: 100%;
       height: 100%;
       padding: 10px;
@@ -84,7 +84,7 @@
         color: utils.$color-cyan-light;
       }
 
-      &-button {
+      &-btn {
         width: 180px;
         height: 100%;
         padding: 10px;
