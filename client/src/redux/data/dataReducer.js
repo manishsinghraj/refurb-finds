@@ -1,12 +1,10 @@
 import { fetchProductsFailure, fetchProductsRequest, fetchProductsSuccess } from "./dataAction";
 import { FETCH_PRODUCTS_FAILURE, FETCH_PRODUCTS_REQUEST, FETCH_PRODUCTS_SUCCESS } from "./dataTypes";
 import axios from "axios";
-// import productsData from "../../assets/data/products/products.json";
 
-//State
 const initialState = {
     loading: false,
-    products: [],
+    products: JSON.parse(localStorage.getItem('products')) || [],
     error: null,
 }
 
@@ -48,8 +46,8 @@ export const fetchProducts = () => {
         axios.get("http://localhost:5000/api/products/getproducts/")
             .then(response => {
                 const products = response.data;
-                console.log("products", products);
                 dispatch(fetchProductsSuccess(products));
+                localStorage.setItem('products', JSON.stringify(products));
             })
             .catch(error => {
                 dispatch(fetchProductsFailure(error?.response?.data?.message || error));

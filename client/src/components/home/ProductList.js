@@ -20,7 +20,7 @@ export const ProductList = ({ products }) => {
     <div className='product-items'>
       <Slider {...settings}>
         {products.map((product) => (
-          <ProductCard key={product.id} product={product} />
+          <ProductCard key={product._id} product={product} />
         ))}
       </Slider>
     </div>

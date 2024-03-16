@@ -131,7 +131,7 @@ export const ShopProductList = () => {
                 </div>
                 <div className='product'>
                     {filteredProduct.map((product) => (
-                        <ProductCard key={product.id} product={product} />
+                        <ProductCard key={product._id} product={product} />
                     ))}
                 </div>
             </div>

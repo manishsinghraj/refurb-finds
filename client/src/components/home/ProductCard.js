@@ -1,32 +1,44 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import StarRating from './StarRating';
 import { FaRegHeart, FaHeart } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToLike, removeFromLike } from '../../redux/like/likeAction';
+import { postLikeItems, removeLikeItems } from '../../redux/like/likeReducer';
 
 export const ProductCard = ({ product }) => {
-    const [isLiked, setIsLiked] = useState(false);
-
-    const likedProduct = useSelector((state) =>
-        state.like.likedProducts.find((item) =>
-            item.id === product.id
-        ));
-
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const [isLiked, setIsLiked] = useState(false);
+    const userDetails = useSelector((state) => state.userDetails.userDetails);
+
+    const likedProductIds = useSelector((state) =>
+        state.like.likedProductIds
+    );
+
+    useEffect(() => {
+        setIsLiked(likedProductIds?.includes(product._id))
+    }, [likedProductIds, product])
 
     const handleLike = () => {
-        if (!isLiked) {
-            dispatch(addToLike(product));
+        if (!userDetails) {
+            navigate('/signin');
         } else {
-            dispatch(removeFromLike(product.id));
+            if (!isLiked) {
+                dispatch(addToLike(product._id));
+                dispatch(postLikeItems(product._id, userDetails.user._id));
+            } else {
+                dispatch(removeFromLike(product._id));
+                dispatch(removeLikeItems(product._id, userDetails.user._id));
+            }
+            setIsLiked(!isLiked);
         }
-        setIsLiked(!isLiked);
     };
 
     return (
         <div className='product-card'>
-            <Link to={`/shop/${product.id}`}>
+            <Link to={`/shop/${product._id}`}>
                 <img src={product.images[0]} alt={product.title} />
             </Link>
             <div className='product-details'>
@@ -40,10 +52,9 @@ export const ProductCard = ({ product }) => {
                 <div className='product-interact'>
                     <p className='product-price'><span>₹</span> {product.price}</p>
                     <span
-                        className={`product__interact__icons__like ${isLiked || likedProduct?.liked ? "active" : ""}`}
-                        onClick={handleLike}
-                    >
-                        {isLiked || likedProduct?.liked ? <FaHeart /> : <FaRegHeart />}
+                        className={`product__interact__icons__like ${isLiked  ? "active" : ""}`}
+                        onClick={handleLike}>
+                        {isLiked  ? <FaHeart /> : <FaRegHeart />}
                     </span>
                 </div>
             </div>

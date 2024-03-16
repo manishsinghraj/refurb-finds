@@ -1,9 +1,9 @@
 import { ADD_TO_CART, REMOVE_CART_ITEM, UPDATE_CART_ITEM_QUANTITY } from "./cartTypes"
 
-export const addToCart = (item) => {
+export const addToCart = (itemId) => {
     return {
         type: ADD_TO_CART,
-        payload: item
+        payload: itemId
     }
 };
 

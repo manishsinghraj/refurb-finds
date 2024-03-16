@@ -68,8 +68,16 @@
                 ;
             }
         }
-    }
 
+    }
+    
+    .cart-heading {
+        text-align: center;
+        width: 100%;
+        background-color: utils.$color-white;
+        color: utils.$color-black;
+    }
+    
     &-subtotal {
         display: flex;
         justify-content: flex-end;

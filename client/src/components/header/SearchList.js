@@ -14,7 +14,7 @@ export const SearchList = ({ filteredSearchProduct, searchText, clearSearchText 
             {filteredSearchProduct.map((item, index) => {
                 return (
                     <>
-                        <NavLink to={`/shop/${item.id}`}>
+                        <NavLink to={`/shop/${item._id}`}>
                             <div key={index} className='search__list-item' onClick={clearSearchText}>
                                 <img src={item.images[0]} alt={item.title}/>
                                 <p>{item.title}</p>

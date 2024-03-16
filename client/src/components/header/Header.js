@@ -18,7 +18,7 @@ const Header = () => {
   const search = useSelector((state) => state.filters.search);
   const products = useSelector((state) => state.data.products);
   const cartItemsCount = useSelector((state) => state.cart?.cart?.length || 0);
-  const likeItemsCount = useSelector((state) => state.like?.likedProducts?.length || 0);
+  const likeItemsCount = useSelector((state) => state.like?.likedProductIds?.length || 0);
 
   const filteredSearchProduct = products.filter((item) => {
     return item.title.toLowerCase().includes(search?.toLowerCase());
@@ -82,12 +82,12 @@ const Header = () => {
       <div className='container'>
         <header className='header'>
 
-          <NavLink to={`/home`}>
+          <a href="/home">
             <div className='header__logo'>
               <img src="refurb-logo.png" alt='refurb-logo'></img>
               <h1 className='header__logo-text'>Refurb<span className='header__logo-text-span'>Finds</span></h1>
             </div>
-          </NavLink>
+          </a>
 
           <div className='header__search'>
             <div className='header__search__box'>

@@ -4,7 +4,10 @@ import { LikeList } from '../components/like/LikeList'
 
 export const Like = () => {
 
-    const likedProducts = useSelector((state) => state.like.likedProducts)
+    const likedProductsIds = useSelector((state) => state.like.likedProductIds);
+    const products = useSelector((state) => state.data.products);
+    
+    const likedProducts = products.filter((item) => likedProductsIds.includes(item._id));
 
     return (
         <>

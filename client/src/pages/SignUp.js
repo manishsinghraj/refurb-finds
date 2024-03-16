@@ -10,16 +10,14 @@ export const SignUp = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const error = useSelector((state) => state.user.error);
-    const isLoading = useSelector((state) => state.user.loading);
-    const user = useSelector((state) => state.user.user);
+    const error = useSelector((state) => state.userDetails.error);
+    const isLoading = useSelector((state) => state.userDetails.loading);
+    const userDetails = useSelector((state) => state.userDetails.userDetails);
 
     const [values, setValues] = useState({
-        // "username": "",
         "name": "",
         "email": "",
         "phone": "",
-        // "birthday": "",
         "password": "",
         "confirmPassword": ""
     });
@@ -76,10 +74,10 @@ export const SignUp = () => {
 
 
     useEffect(() => {
-        if (!error && user) { // If there's no error and user exists
+        if (!error && userDetails) { // If there's no error and user exists
             navigate('/home');
         }
-    }, [error, user, navigate]);
+    }, [error, userDetails, navigate]);
 
     const handleRegisterUser = (e) => {
         e.preventDefault();
@@ -112,7 +110,7 @@ export const SignUp = () => {
                             {inputs.map((input) => (
                                 <FormInputs key={input.id} {...input} value={values[input.name]} onChange={onChange}></FormInputs>
                             ))}
-                            <button className='submit-btn'>{isLoading ? "..." : "Submit"}</button>
+                            <button className='submit-btn'>{isLoading ? "Loading..." : "Submit"}</button>
                             <hr />
                             <div className='signin-account'>
                                 <span className='signin-account-span'>Already have an account?</span>

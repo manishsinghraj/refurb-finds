@@ -1,5 +1,10 @@
 const mongoose = require("mongoose");
 
+const cartItemSchema = new mongoose.Schema({
+    _id: { type: mongoose.Schema.Types.ObjectId, ref: 'Product', required: true },
+    quantity: { type: Number, default: 1 } // Default quantity is 1
+});
+
 const userSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -24,10 +29,12 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    likedItems: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Product' }],
+    cartItems: [cartItemSchema],
 }, {
     timestamps: true
 });
 
-const userModel = mongoose.model("users", userSchema);
+const userModel = mongoose.model("User", userSchema);
 
 module.exports = userModel;

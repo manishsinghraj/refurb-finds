@@ -1,8 +1,17 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { FormInputs } from '../components/sign/FormInputs';
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux';
+import { signUser } from '../redux/user/userReducer';
 
 export const SignIn = () => {
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const error = useSelector((state) => state.userDetails.error);
+  const isLoading = useSelector((state) => state.userDetails.loading);
+  const userDetails = useSelector((state) => state.userDetails.userDetails);
 
   const [values, setValues] = useState({
     "email": "",
@@ -31,15 +40,22 @@ export const SignIn = () => {
 
   ]
 
+  useEffect(() => {
+    if (!error && userDetails) {
+      navigate('/home');
+      window.location.reload(); // need to refresh page
+    }
+  }, [error, userDetails, navigate]);
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    dispatch(signUser(values));
   }
 
   const onChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value })
   }
-
-  console.log(values);
 
   const handleAccountCreate = () => {
 
@@ -62,7 +78,7 @@ export const SignIn = () => {
             {inputs.map((input) => (
               <FormInputs key={input.id} {...input} value={values[input.name]} onChange={onChange}></FormInputs>
             ))}
-            <button className='submit-btn'>Submit</button>
+            <button className='submit-btn'>{isLoading ? "Loading..." : "Submit"}</button>
             <hr />
             <div className='create-account'>
               <span className='create-account-span'>New to RefurbFinds?</span>

@@ -1,12 +1,18 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { FaHeart } from 'react-icons/fa';
 import { FaHeartCrack } from "react-icons/fa6";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { removeFromLike } from '../../redux/like/likeAction';
 import { addToCart } from '../../redux/cart/cartActions';
+import { useNavigate } from 'react-router-dom';
+import { removeLikeItems } from '../../redux/like/likeReducer';
+import { postCartItems } from '../../redux/cart/cartReducer';
 
 export const LikeCard = ({ item }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const userDetails = useSelector((state) => state.userDetails.userDetails);
   const [breakHeart, setBreakHeart] = useState(false);
 
   const handleHeartClick = useCallback(() => {
@@ -17,17 +23,23 @@ export const LikeCard = ({ item }) => {
     let timeOutId = "";
     if (breakHeart) {
       timeOutId = setTimeout(() => {
-        dispatch(removeFromLike(item.id));
+        dispatch(removeFromLike(item._id));
+        dispatch(removeLikeItems(item._id, userDetails.user._id));
       }, 2000);
     }
 
     return () => {
       clearTimeout(timeOutId);
     };
-  }, [dispatch, breakHeart, item]);
+  }, [dispatch, breakHeart, item, userDetails]);
 
   const handleAddToCart = () => {
-    dispatch(addToCart(item));
+    if (!userDetails) {
+      navigate('/signin');
+    } else {
+      dispatch(addToCart(item._id));
+      dispatch(postCartItems(item._id, userDetails.user._id));
+    }
   };
 
   return (

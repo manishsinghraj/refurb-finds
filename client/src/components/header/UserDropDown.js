@@ -4,13 +4,14 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { signOutUser } from '../../redux/user/userAction';
 
 export const UserDropDown = ({ handleUserAccount }) => {
-    const userDetails = useSelector((state) => state.user.user);
+    const userDetails = useSelector((state) => state.userDetails.userDetails);
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const handleSignOut = () => {
-        dispatch(signOutUser())
+        dispatch(signOutUser());
         navigate('/signin');
+        window.location.reload(); // need to refresh page
     };
 
     const dropDownList = [
@@ -44,7 +45,7 @@ export const UserDropDown = ({ handleUserAccount }) => {
                         </p>
                     </>
                 ) : (
-                <p>Hello {userDetails?.user?.name || "user"}</p>
+                <h2>Hello {userDetails?.user?.name || "user"}</h2>
                 )}
             </div>
             {userDetails && dropDownList.map((item, index) => (
