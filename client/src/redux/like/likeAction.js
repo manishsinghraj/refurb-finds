@@ -1,9 +1,9 @@
 import { ADD_TO_LIKE, REMOVE_FROM_LIKE } from "./likeTypes"
 
-export const addToLike = (likedItem) => {
+export const addToLike = (likedItemId) => {
     return {
         type: ADD_TO_LIKE,
-        payload: likedItem
+        payload: likedItemId
     }
 }
 

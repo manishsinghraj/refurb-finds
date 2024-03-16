@@ -15,7 +15,7 @@ const rootReducer = combineReducers({
     filters: filterReducer,
     data: dataReducer,
     like: likeReducer,
-    user : userReducer
+    userDetails : userReducer
 });
 
 

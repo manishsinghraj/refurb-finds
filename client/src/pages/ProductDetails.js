@@ -1,20 +1,29 @@
 import React from 'react';
-import { useParams } from "react-router-dom";
-import products from "../assets/data/products/products.json";
+import { useNavigate, useParams } from "react-router-dom";
 import StarRating from '../components/home/StarRating';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from '../redux/cart/cartActions';
+import { postCartItems } from '../redux/cart/cartReducer';
 
 
 export const ProductDetails = () => {
+    const products = useSelector((state) => state.data.products);
 
     const { id } = useParams();
-    const product = products.find((item) => item.id === parseInt(id));
-
+    const product = products.find((item) => item._id === id);
+   
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const userDetails = useSelector((state) => state.userDetails.userDetails)
 
     const handleAddToCart = () => {
-        dispatch(addToCart(product));
+        if (!userDetails) {
+            navigate('/signin');
+        } else {
+            dispatch(addToCart(product._id));
+            dispatch(postCartItems(product._id, userDetails.user._id));
+        }
     }
 
     return (

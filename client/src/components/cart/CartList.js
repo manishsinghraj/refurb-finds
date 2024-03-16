@@ -1,22 +1,23 @@
 import React from 'react';
 import { CartCard } from './CartCard';
 
-const CartList = ({ cart }) => {
-    const subTotal = cart?.reduce((total, item) => total + (item.price * item.quantity), 0);
+const CartList = ({ cartDetails }) => {
+
+    const subTotal = cartDetails?.reduce((total, item) => total + (item.price * item.quantity), 0);
 
     return (
         <div className='shopping__cart-items'>
-            {cart && cart.length > 0 ? (
+            {cartDetails && cartDetails.length > 0 ? (
                 <>
-                    {cart.map((item, index) => {
+                    {cartDetails.map((item, _) => {
                         return <CartCard key={item.id} item={item} />;
                     })}
                     <div className='shopping__cart-subtotal'>
-                        <h2>SubTotal ({cart.length} items): ₹ {subTotal}</h2>
+                        <h2>SubTotal ({cartDetails.length} items): ₹ {subTotal}</h2>
                     </div>
                 </>
             ) : (
-                <h2>Cart is Empty</h2>
+                <h2 className='cart-heading'>Looks like our cart took a detour to the land of emptiness! 😕</h2>
             )}
         </div>
     );
