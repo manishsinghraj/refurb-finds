@@ -3,7 +3,7 @@
 
 # Package installation
 
-`npm i express mongoose dotenv cors nodemon -d bcrypt jsonwebtoken `
+`npm i express mongoose dotenv cors nodemon -d bcrypt jsonwebtoken stripe`
 
 <hr>
 

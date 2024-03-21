@@ -1,8 +1,9 @@
-import { ADD_TO_CART, REMOVE_CART_ITEM, UPDATE_CART_ITEM_QUANTITY } from "./cartTypes";
+import { ADD_PRODUCT_DETAILS_TO_CART, ADD_TO_CART, REMOVE_CART_ITEM, UPDATE_CART_ITEM_QUANTITY } from "./cartTypes";
 import axios from "axios";
 
 const initialState = {
     cart: JSON.parse(localStorage.getItem('user'))?.user.cartItems || [],
+    cartDetails: []
 };
 
 const cartReducer = (state = initialState, action) => {
@@ -25,6 +26,12 @@ const cartReducer = (state = initialState, action) => {
                     ...state,
                     cart: [...state.cart, { _id: action.payload, quantity: 1 }],
                 };
+            }
+
+        case ADD_PRODUCT_DETAILS_TO_CART:
+            return {
+                ...state,
+                cartDetails: action.payload
             }
 
         case UPDATE_CART_ITEM_QUANTITY:

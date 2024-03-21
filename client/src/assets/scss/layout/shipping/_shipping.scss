@@ -1,0 +1,268 @@
+@use "../../utils";
+
+.shipping {
+    margin: 20px 80px;
+
+    &-container {
+        padding: 40px 80px;
+        background-color: #000000;
+        border-radius: 15px;
+
+        .progress-bar {
+            height: 4px;
+            background-color: #686868;
+            margin-bottom: 20px;
+        }
+
+        .progress {
+            height: 100%;
+            background-color: #28a745;
+            transition: 0.2s ease;
+        }
+
+
+        .steps {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+
+
+            .step {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .step-number {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+                font-weight: 700;
+                background-color: #4d4d4d;
+                color: #000000;
+                margin-bottom: 15px;
+                z-index: 2;
+            }
+
+            .step-name {
+                font-size: 14px;
+            }
+
+            .active .step-number {
+                background-color: utils.$color-cyan-lightest;
+            }
+
+            .complete .step-number {
+                background-color: utils.$color-cyan-lightest;
+            }
+
+        }
+
+        .step-component {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 50px auto;
+            padding: 35px;
+            max-width: 60%;
+            background-color: utils.$color-black;
+            border-radius: 20px;
+            box-shadow: 0 4px 30px utils.$color-purple-light-mid;
+            backdrop-filter: blur(4.8px);
+            -webkit-backdrop-filter: blur(4.8px);
+            border: 1px solid utils.$color-cyan-light;
+
+            .shipping-info {
+                display: flex;
+                flex-direction: column;
+
+                .input-wrapper {
+                    margin-bottom: 1.5em;
+                    gap: 2em;
+                }
+
+                input {
+                    width: 100%;
+                    height: 40px;
+                    border: none;
+                    border-radius: 10px;
+                    padding: 10px;
+                }
+
+                &-name,
+                &-location {
+                    display: flex;
+                }
+
+                .save {
+                    display: flex;
+                    justify-content: flex-end;
+                    gap: 1em;
+
+                    .btn {
+                        width: 100px;
+                        height: 40px;
+                        font-size: 20px;
+                        border: none;
+                        border-radius: 5px;
+                        outline: 1px solid utils.$color-white;
+                        color: utils.$color-white;
+                        background-color: utils.$color-black;
+                        cursor: pointer;
+                    }
+
+                    .saved-btn {
+                        background-color: utils.$color-grey;
+                        color: utils.$color-black;
+                    }
+                }
+            }
+
+            .shipping-method {
+                .radio-wrapper {
+                    display: flex;
+                    flex-direction: column;
+                    width: 500px;
+
+                    .radio {
+                        border-radius: 10px;
+                        border: 1px solid #fff;
+                        padding: 10px;
+                        margin-bottom: 10px;
+                        font-weight: 700;
+                        cursor: pointer;
+
+                        input[type='radio'] {
+                            width: 15px;
+                            height: 15px;
+                            margin-right: 5px;
+                            color: #000;
+                            cursor: pointer;
+                        }
+
+
+                        &.selected {
+                            background-color: #39deed;
+                            color: #000;
+                        }
+                    }
+                }
+            }
+
+            .order-summary {
+                margin: 1em;
+
+                .break-line {
+                    margin-top: 40px;
+
+                    hr {
+                        border: none;
+                        height: 5px;
+                        background-color: utils.$color-purple-light-mid;
+                    }
+                }
+
+                .order-summary-table {
+                    width: 100%;
+                    border-collapse: collapse;
+
+                    th,
+                    td {
+                        padding: 8px 15px;
+                        border-bottom: 1px solid #ddd;
+                        text-align: center;
+                        /* Center align all content */
+                    }
+
+                    th {
+                        color: #000;
+                        // text-align: left;
+                        background-color: #f2f2f2;
+                    }
+
+                    th:first-child,
+                    td:first-child {
+                        text-align: start;
+                    }
+
+                    // td:first-child>div {
+                    //     /* Apply styles to wrap the item title */
+                    //     overflow: hidden;
+                    //     white-space: nowrap;
+                    //     text-overflow: ellipsis;
+                    // }
+
+                    .subtotal {
+                        td {
+                            padding-top: 20px;
+                            border: none;
+                            // font-weight: 700;
+                        }
+                    }
+
+                    .shipping-charge {
+                        td {
+                            // font-weight: 700;
+                            font-style: italic;
+                        }
+                    }
+
+                    .total-charge {
+                        &-title {
+                            color: utils.$color-cyan-light;
+                            font-size: 20px;
+                        }
+
+                        &-price {
+                            font-size: 20px;
+                        }
+                    }
+                }
+            }
+        }
+
+
+
+
+        .proceed {
+            display: flex;
+            justify-content: space-between;
+            margin: 0 80px;
+
+            &-btn {
+                width: 150px;
+                height: 50px;
+                font-size: 20px;
+                border: none;
+                border-radius: 5px;
+                outline: 1px solid utils.$color-black;
+                color: utils.$color-white;
+                background-color: utils.$color-purple-light-mid;
+                cursor: pointer;
+
+
+                &.continue-first-step {
+                    margin-left: auto;
+                }
+            }
+
+
+            .disabled {
+                background-color: utils.$color-grey-dark;
+                color: gray;
+                cursor: not-allowed;
+            }
+
+
+            &-btn.hide {
+                display: none;
+            }
+        }
+    }
+
+
+}

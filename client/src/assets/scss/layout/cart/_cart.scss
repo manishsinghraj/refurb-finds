@@ -35,7 +35,6 @@
             min-width: 60%;
             margin-bottom: 45px;
 
-
             select {
                 background-color: utils.$color-white;
                 width: 60px;
@@ -44,6 +43,7 @@
                 padding: 0 5px;
                 margin: 5px;
                 border-radius: 10px;
+                margin-right: 4em;
             }
         }
 
@@ -70,14 +70,14 @@
         }
 
     }
-    
+
     .cart-heading {
         text-align: center;
         width: 100%;
         background-color: utils.$color-white;
         color: utils.$color-black;
     }
-    
+
     &-subtotal {
         display: flex;
         justify-content: flex-end;
@@ -85,5 +85,24 @@
         background-color: utils.$color-white;
         color: utils.$color-black;
         margin: 20px 0;
+    }
+
+    .checkout {
+        margin: 10px;
+        display: flex;
+        justify-content: flex-end;
+
+        &-btn {
+            width: 150px;
+            height: 50px;
+            font-size: 20px;
+            font-weight: 700;
+            border: none;
+            border-radius: 5px;
+            outline: 1px solid utils.$color-black;
+            color: utils.$color-black;
+            background-color: utils.$color-cyan-light-mid;
+            cursor: pointer;
+        }
     }
 }
