@@ -6,6 +6,7 @@ const app = express();
 dotenv.config();
 const productRoutes = require("./routes/productRoutes");
 const userRoutes = require("./routes/userRoutes");
+const checkoutRoutes = require("./routes/checkoutRoutes");
 
 app.use(cors());
 app.use(express.json());
@@ -15,6 +16,7 @@ const URI = process.env.MONGODB_URI;
 
 app.use("/api/products", productRoutes);
 app.use("/api/user", userRoutes);
+app.use("/api/checkout", checkoutRoutes);
 
 mongoose.connect(URI).then(() => {
     console.log("MongoDB connection established");

@@ -10,6 +10,10 @@ import { SignUp } from '../pages/SignUp';
 import { Orders } from '../pages/Orders';
 import ScrollToTop from '../components/utils/ScrollToTop';
 import { Accounts } from '../pages/Accounts';
+import { Shipping } from '../components/shipping/Shipping';
+import { Failed } from '../components/shipping/Failed';
+import { Success } from '../components/shipping/Success';
+
 
 export const Routers = () => {
   return (
@@ -25,6 +29,7 @@ export const Routers = () => {
         <Route path='/orders' element={<Orders />} />
         <Route path='/account' element={<Accounts />} />
         <Route path='/shop/:id' element={<ProductDetails />} />
+        <Route path='/shipping' element={<Shipping />} />
         <Route path='/' element={<Navigate to="/home" />} />
       </Routes>
     </>

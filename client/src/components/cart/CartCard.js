@@ -1,6 +1,6 @@
 import React from 'react';
 import { MdDelete } from "react-icons/md";
-import {  useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { removeCartItem, updateCartItemQuantity } from '../../redux/cart/cartActions';
 import { postCartItems, removeCartItems } from '../../redux/cart/cartReducer';
 
@@ -19,6 +19,8 @@ export const CartCard = ({ item }) => {
         dispatch(removeCartItem(item._id));
         dispatch(removeCartItems(item._id, userDetails.user._id));
     }
+
+    
 
     return (
         <>
@@ -43,6 +45,7 @@ export const CartCard = ({ item }) => {
                     </div>
                 </div>
             </div>
+                    
         </>
     )
 }
