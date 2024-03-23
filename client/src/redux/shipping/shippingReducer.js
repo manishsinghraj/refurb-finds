@@ -1,10 +1,11 @@
-import { SAVE_SHIPPING_INFO, SAVE_SHIPPING_METHOD } from "./shippingTypes";
+import { SAVE_AMOUNT, SAVE_SHIPPING_INFO, SAVE_SHIPPING_METHOD } from "./shippingTypes";
 import axios from "axios";
 
 const initialState = {
     shippingInfo: JSON.parse(localStorage.getItem("shippingInfo")) || {},
     shippingMethod: "prepaid",
     orderSummary: {},
+    amount: null
 };
 
 export const shippingReducer = (state = initialState, action) => {
@@ -22,6 +23,12 @@ export const shippingReducer = (state = initialState, action) => {
                 shippingMethod: action.payload
             };
 
+        case SAVE_AMOUNT:
+            return {
+                ...state,
+                amount: action.payload
+            };
+
         default:
             return state;
     }
@@ -29,7 +36,7 @@ export const shippingReducer = (state = initialState, action) => {
 
 
 export const postShippingDetails = () => {
-    return async (dispatch, getState) => { // Note the addition of `dispatch` here
+    return async (dispatch, getState) => {
         try {
             const state = getState();
             const shippingInfo = state.shipping.shippingInfo;
@@ -48,4 +55,44 @@ export const postShippingDetails = () => {
         }
     };
 };
+
+export const placeCodOrder = () => {
+    return async (dispatch, getState) => {
+        try {
+            const state = getState();
+            const amount = state.shipping.amount;
+            const userDetails = state.userDetails.userDetails;
+            const cartDetails = state.cart.cartDetails;
+
+
+            const items = cartDetails.map((item) => ({
+                id: item._id,
+                price: item.price,
+                category: item.category?.name,
+                quantity: item.quantity,
+            }));
+
+            const orderData = {
+                orderDetails: {
+                    userId: userDetails.user._id,
+                    customerId: null,
+                    paymentId: null,
+                    products: items,
+                    subTotal: amount.subTotal,
+                    total: amount.totalCharge,
+                    shipping: amount.shippingCharge,
+                }
+            }
+
+            console.log("orderData", orderData);
+            const response = await axios.post("http://localhost:5000/api/order/placecodorder", orderData);
+            console.log("cod order placed successfully");
+            return response;
+
+        } catch (error) {
+            console.log("cod order failed");
+            return error;
+        }
+    }
+}
 

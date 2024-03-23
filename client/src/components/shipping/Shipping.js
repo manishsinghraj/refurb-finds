@@ -7,7 +7,7 @@ import { OrderSummary } from './OrderSummary'
 import { saveShippingInfo } from '../../redux/shipping/shippingAction'
 import { useDispatch, useSelector } from 'react-redux';
 import { loadStripe } from '@stripe/stripe-js';
-import { postShippingDetails } from '../../redux/shipping/shippingReducer';
+import { placeCodOrder, postShippingDetails } from '../../redux/shipping/shippingReducer';
 
 export const Shipping = () => {
     const dispatch = useDispatch();
@@ -17,11 +17,14 @@ export const Shipping = () => {
     const cartDetails = useSelector((state) => state.cart.cartDetails);
     const shippingMethod = useSelector((state) => state.shipping.shippingMethod);
     const shippingInfo = useSelector((state) => state.shipping.shippingInfo);
+    const amount = useSelector((state) => state.shipping.amount);
+    const userDetails = useSelector((state) => state.userDetails.userDetails);
     const [currentStep, setCurrentStep] = useState(1);
     const [isComplete, setIsComplete] = useState(false);
     const [isDisabled, setIsDisabled] = useState(true);
     const queryParams = new URLSearchParams(location.search);
     const paymentStatus = queryParams.get('payment');
+    const [orderPlacedDetails, setOrderPlacedDetails] = useState(null);
 
 
     useEffect(() => {
@@ -40,7 +43,7 @@ export const Shipping = () => {
             console.log("first");
             setIsDisabled(false);
         } else {
-            setIsDisabled(true); 
+            setIsDisabled(true);
         }
     }, [shippingInfo]);
 
@@ -63,7 +66,7 @@ export const Shipping = () => {
         },
         {
             name: "Order confirmation",
-            Component: () => <OrderConfirmation paymentStatus={paymentStatus} />
+            Component: () => <OrderConfirmation paymentStatus={paymentStatus} orderPlacedDetails={orderPlacedDetails} />
         },
     ]
 
@@ -96,7 +99,9 @@ export const Shipping = () => {
         const stripe = await loadStripe('pk_test_51OwGqfSHGLZQBGD1CSPXJeZ4lOJjQ4m4NFbD3Qdt41KA8abE84z9xSLQi2pVmaEO4h5uR0HLg5hQ7kY85CfZJxCz00DDl4JPYY');
 
         const body = {
-            products: cartDetails
+            products: cartDetails,
+            userId: userDetails.user._id,
+            amount: amount
         }
 
         const response = await fetch("http://localhost:5000/api/checkout/makepayment", {
@@ -120,10 +125,16 @@ export const Shipping = () => {
 
 
 
-    const handleNext = (e) => {
+    const handleNext = async (e) => {
         e.preventDefault();
         if (stepperConfig[currentStep - 1]?.name === "Order Summary" && shippingMethod !== "cod") {
             makePayment();
+        } else if (stepperConfig[currentStep - 1]?.name === "Order Summary" && shippingMethod === "cod") {
+            const response = await dispatch(placeCodOrder());
+            setOrderPlacedDetails(response);
+            setCurrentStep((prevStep) => {
+                return prevStep + 1
+            })
         } else {
             setCurrentStep((prevStep) => {
                 if (prevStep === stepperConfig.length) {
@@ -177,7 +188,13 @@ export const Shipping = () => {
                                     ${currentStep === index + 1 ? "active" : ""}`}
                                         ref={(el) => (stepRef.current[index] = el)}>
                                         <div className='step-number'>
-                                            {currentStep > index + 1 || isComplete ? (<span>&#10003;</span>) : (index + 1)}
+                                            {currentStep > index + 1 || isComplete || paymentStatus === "success" || (orderPlacedDetails && orderPlacedDetails.status === 200) ? (
+                                                <span>&#10003;</span> // Checkmark
+                                            ) : paymentStatus === "cancelled" || (orderPlacedDetails && orderPlacedDetails.status !== 200) ? (
+                                                <span style={{color:"red"}}>&#10005;</span> // Cross mark
+                                            ) : (
+                                                index + 1
+                                            )}
                                         </div>
                                         <div className='step-name'>{step.name}</div>
                                     </div>
@@ -192,9 +209,9 @@ export const Shipping = () => {
                     {!isComplete &&
                         <div className='proceed'>
                             {currentStep !== 1 && (
-                                <button className={`proceed-btn ${currentStep === 1 ? "hide" : ""}`} onClick={handlePrevious}>Back</button>
+                                <button className={`proceed-btn ${currentStep === 1 || currentStep === stepperConfig.length ? "hide" : ""}`} onClick={handlePrevious}>Back</button>
                             )}
-                            <button disabled={isDisabled} className={`proceed-btn ${isDisabled ? "disabled" : ""} ${currentStep === 1 ? "continue-first-step" : ""}`} onClick={handleNext}>
+                            <button disabled={isDisabled} className={`proceed-btn ${isDisabled ? "disabled" : ""} ${currentStep === 1 || currentStep === stepperConfig.length ? "continue-first-step" : ""}`} onClick={handleNext}>
                                 {currentStep === stepperConfig.length - 1 ? shippingMethod === "cod" ? "Place Order" : "Make Payment" : "Continue"}
                             </button>
                         </div>

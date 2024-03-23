@@ -1,7 +1,13 @@
-import React from 'react'
+import React from 'react';
+import { IoMdDoneAll } from "react-icons/io";
 
 export const Success = () => {
   return (
-    <div>Success</div>
+    <>
+      <div className='success'>
+        <h2 className='success-heading'>Payment Successful</h2>
+        <IoMdDoneAll className='success-icon' />
+      </div>
+    </>
   )
 }

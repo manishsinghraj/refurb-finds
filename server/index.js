@@ -7,8 +7,11 @@ dotenv.config();
 const productRoutes = require("./routes/productRoutes");
 const userRoutes = require("./routes/userRoutes");
 const checkoutRoutes = require("./routes/checkoutRoutes");
+const stripeWebhookRoutes = require("./routes/stripeWebhookRoutes");
+const orderRoutes = require("./routes/orderRoutes");
 
 app.use(cors());
+app.use("/api/stripewebhook", stripeWebhookRoutes);
 app.use(express.json());
 
 const PORT = process.env.PORT || 3002;
@@ -17,6 +20,7 @@ const URI = process.env.MONGODB_URI;
 app.use("/api/products", productRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/checkout", checkoutRoutes);
+app.use("/api/order", orderRoutes);
 
 mongoose.connect(URI).then(() => {
     console.log("MongoDB connection established");

@@ -264,5 +264,68 @@
         }
     }
 
+    .failed {
+        display: flex;
+        // gap: 2em;
+
+        &-heading {
+            margin: 0;
+            padding: 0;
+        }
+
+        &-icon {
+            margin-left: 0.5em;
+            color: red;
+            font-size: 35px;
+        }
+    }
+
+    .success {
+        display: flex;
+        // gap: 2em;
+
+        &-heading {
+            margin: 0;
+            padding: 0;
+        }
+
+        &-icon {
+            margin-left: 0.5em;
+            color: rgb(13, 255, 0);
+            font-size: 35px;
+        }
+    }
+
+    .order-details {
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        .order-placed {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+
+            h2 {
+                margin: 0;
+                padding: 0;
+            }
+
+            .success-icon {
+                margin-left: 0.5em;
+                color: rgb(13, 255, 0);
+                font-size: 35px;
+            }
+
+            .failed-icon {
+                margin-left: 0.5em;
+                color: red;
+                font-size: 35px;
+            }
+        }
+    }
 
 }
