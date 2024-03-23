@@ -28,7 +28,7 @@ export const Carousel = () => {
     useEffect(() => {
         const slideInterval = setTimeout(() => {
             dispatch(nextSlide(slides));
-        }, 2500); 
+        }, 4500); 
 
         return () => {
             clearTimeout(slideInterval);

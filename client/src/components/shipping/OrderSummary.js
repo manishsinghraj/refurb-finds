@@ -1,13 +1,25 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateAmount } from '../../redux/shipping/shippingAction';
 
 export const OrderSummary = () => {
+  const dispatch = useDispatch();
   const cartDetails = useSelector((state) => state.cart.cartDetails);
   const sippingInfoDetails = useSelector((state) => state.shipping.shippingInfo);
+  const amount = useSelector((state) => state.shipping.amount);
 
   const subTotal = cartDetails?.reduce((total, item) => total + (item.price * item.quantity), 0);
   const shippingCharge = (subTotal * 15) / 100;
   const totalCharge = subTotal + shippingCharge;
+
+  useEffect(() => {
+    if (subTotal !== amount?.subTotal ||
+      shippingCharge !== amount?.shippingCharge ||
+      totalCharge !== amount?.totalCharge) {
+      dispatch(updateAmount(subTotal, shippingCharge, totalCharge));
+    }
+  }, [subTotal, shippingCharge, totalCharge, dispatch, amount]);
+
 
   return (
     <>
