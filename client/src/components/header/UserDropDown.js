@@ -20,8 +20,12 @@ export const UserDropDown = ({ handleUserAccount }) => {
             name: "Orders"
         },
         {
-            path: "account",
-            name: "Account"
+            path: "cart",
+            name: "Cart"
+        },
+        {
+            path: "like",
+            name: "Like"
         },
         {
             path: "signin",

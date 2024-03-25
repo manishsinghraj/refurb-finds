@@ -7,7 +7,7 @@ import { OrderSummary } from './OrderSummary'
 import { saveShippingInfo } from '../../redux/shipping/shippingAction'
 import { useDispatch, useSelector } from 'react-redux';
 import { loadStripe } from '@stripe/stripe-js';
-import { placeCodOrder, postShippingDetails } from '../../redux/shipping/shippingReducer';
+import { getSavedShippingInfo, placeCodOrder, postShippingDetails } from '../../redux/shipping/shippingReducer';
 
 export const Shipping = () => {
     const dispatch = useDispatch();
@@ -35,7 +35,9 @@ export const Shipping = () => {
         setCurrentStep(step);
     }, [location.search, navigate]);
 
-
+    useEffect(() => {
+        dispatch(getSavedShippingInfo())
+    }, [dispatch])
 
     useEffect(() => {
 

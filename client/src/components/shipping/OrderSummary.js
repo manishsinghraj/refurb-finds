@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateAmount } from '../../redux/shipping/shippingAction';
 
@@ -6,20 +6,26 @@ export const OrderSummary = () => {
   const dispatch = useDispatch();
   const cartDetails = useSelector((state) => state.cart.cartDetails);
   const sippingInfoDetails = useSelector((state) => state.shipping.shippingInfo);
+  const sippingMethod = useSelector((state) => state.shipping.shippingMethod);
   const amount = useSelector((state) => state.shipping.amount);
+  const [shippingCharge, setShippingCharge] = useState(0);
+  const [totalCharge, setTotalCharge] = useState(0);
 
   const subTotal = cartDetails?.reduce((total, item) => total + (item.price * item.quantity), 0);
-  const shippingCharge = (subTotal * 15) / 100;
-  const totalCharge = subTotal + shippingCharge;
 
   useEffect(() => {
-    if (subTotal !== amount?.subTotal ||
-      shippingCharge !== amount?.shippingCharge ||
-      totalCharge !== amount?.totalCharge) {
-      dispatch(updateAmount(subTotal, shippingCharge, totalCharge));
-    }
-  }, [subTotal, shippingCharge, totalCharge, dispatch, amount]);
+    const newShippingCharge = sippingMethod === "cod" ? (subTotal * 15) / 100 : 0;
+    const newTotalCharge = subTotal + newShippingCharge;
 
+    setShippingCharge(newShippingCharge);
+    setTotalCharge(newTotalCharge);
+
+    if (subTotal !== amount?.subTotal ||
+      newShippingCharge !== amount?.shippingCharge ||
+      newTotalCharge !== amount?.totalCharge) {
+      dispatch(updateAmount(subTotal, newShippingCharge, newTotalCharge));
+    }
+  }, [subTotal, sippingMethod, dispatch, amount]);
 
   return (
     <>
@@ -50,7 +56,7 @@ export const OrderSummary = () => {
                 <tr className='shipping-charge'>
                   <td></td>
                   <td className='shipping-charge-title'>Shipping Charge</td>
-                  <td className='shipping-charge-price'>₹ {shippingCharge}</td>
+                  <td className='shipping-charge-price'>{shippingCharge === 0 ? `Free` : `₹ ${shippingCharge}`}</td>
                 </tr>
                 <tr className='total-charge'>
                   <td></td>
@@ -68,6 +74,10 @@ export const OrderSummary = () => {
               <span> {sippingInfoDetails.firstname} </span>
               <span> {sippingInfoDetails.lastname} </span>
               <p>{sippingInfoDetails.address}</p>
+              <p>{sippingInfoDetails.city}</p>
+              <p>{sippingInfoDetails.state}</p>
+              <p>{sippingInfoDetails.zip}</p>
+              <p>{"India"}</p>
               <p>{sippingInfoDetails.phone}</p>
             </div>
 

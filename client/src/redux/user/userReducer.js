@@ -63,6 +63,9 @@ const userReducer = (state = initialState, action) => {
         case SIGN_OUT_USER:
             localStorage.removeItem('user');
             localStorage.removeItem('likedProductIds');
+            localStorage.removeItem('products');
+            localStorage.removeItem('shippingInfo');
+            localStorage.removeItem('cartDetails');
             return {
                 ...state,
                 loading: false,

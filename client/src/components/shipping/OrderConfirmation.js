@@ -8,7 +8,7 @@ export const OrderConfirmation = ({ paymentStatus, orderPlacedDetails }) => {
   return (
     <>
       {!paymentStatus ? <OrderPlaced orderPlacedDetails={orderPlacedDetails} /> :
-        paymentStatus === "success" ? <Success /> : <Failed />}
+        paymentStatus === "success" ? <Success paymentStatus={paymentStatus} /> : <Failed />}
     </>
   )
 }

@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-export const ShippingInfo = ({ saveShippingInfoHandler, onFormChange }) => {
-  const shippingInfo = useSelector((state) => state.shipping.shippingInfo);
+export const ShippingInfo = ({  saveShippingInfoHandler, onFormChange }) => {
+  const shippingInfo = useSelector(state => state.shipping.shippingInfo);
+
   const [values, setValues] = useState(shippingInfo || {
     firstname: '',
     lastname: '',
@@ -12,11 +13,11 @@ export const ShippingInfo = ({ saveShippingInfoHandler, onFormChange }) => {
     state: '',
     phone: '',
   });
-  const [isSaved, setIsSaved] = useState(false); 
+  const [isSaved, setIsSaved] = useState(false);
 
   const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
-    setIsSaved(false); 
+    setIsSaved(false);
     onFormChange();
   };
 
@@ -31,7 +32,7 @@ export const ShippingInfo = ({ saveShippingInfoHandler, onFormChange }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setIsSaved(true); // Set isSaved to true when the form is submitted
+    setIsSaved(true); 
     saveShippingInfoHandler(values);
   };
 

@@ -3,7 +3,7 @@ import axios from "axios";
 
 const initialState = {
     cart: JSON.parse(localStorage.getItem('user'))?.user.cartItems || [],
-    cartDetails: []
+    cartDetails: JSON.parse(localStorage.getItem('cartDetails')) || []
 };
 
 const cartReducer = (state = initialState, action) => {
@@ -29,6 +29,7 @@ const cartReducer = (state = initialState, action) => {
             }
 
         case ADD_PRODUCT_DETAILS_TO_CART:
+            localStorage.setItem('cartDetails', JSON.stringify(action.payload));
             return {
                 ...state,
                 cartDetails: action.payload

@@ -79,6 +79,7 @@ export const SignIn = () => {
               <FormInputs key={input.id} {...input} value={values[input.name]} onChange={onChange}></FormInputs>
             ))}
             <button className='submit-btn'>{isLoading ? "Loading..." : "Submit"}</button>
+            {error && <span className='credential-error'>{error}</span>}
             <hr />
             <div className='create-account'>
               <span className='create-account-span'>New to RefurbFinds?</span>

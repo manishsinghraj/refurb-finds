@@ -1,6 +1,6 @@
 const shippingModel = require("../model/shippingModel");
 
-const shippingDetails = async (req, res) => {
+const postShippingDetails = async (req, res) => {
     try {
         const { shippingInfo, userId } = req.body;
 
@@ -21,4 +21,21 @@ const shippingDetails = async (req, res) => {
     }
 };
 
-module.exports = { shippingDetails };
+const getShippingDetails = async (req, res) => {
+    const userId = req.query.userId; 
+    try {
+        const shippingInfo = await shippingModel.find({ userId: userId });
+        
+        if (!shippingInfo[0]) {
+            return res.status(404).json({ message: "Shipping information not found" });
+        }
+
+        res.status(200).json(shippingInfo[0]);
+    } catch (error) {
+        console.log("Error during retrieving shipping info from db:", error);
+        return res.status(500).json({ message: "Error during retrieving shipping info from db" });
+    }
+};
+
+
+module.exports = { postShippingDetails, getShippingDetails };
