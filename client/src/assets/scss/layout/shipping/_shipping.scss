@@ -129,6 +129,8 @@
                     width: 500px;
 
                     .radio {
+                        display: flex;
+                        justify-content: space-between;
                         border-radius: 10px;
                         border: 1px solid #fff;
                         padding: 10px;
@@ -223,6 +225,13 @@
                     }
                 }
             }
+
+            .shipping-summary-table {
+                p {
+                    margin: 0;
+                    padding: 0;
+                }
+            }
         }
 
 
@@ -283,10 +292,13 @@
     .success {
         display: flex;
         // gap: 2em;
+        flex-direction: column;
+        align-items: center;
 
         &-heading {
             margin: 0;
             padding: 0;
+            margin-bottom: 20px;
         }
 
         &-icon {
@@ -296,28 +308,22 @@
         }
     }
 
-    .order-details {
 
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+
+
+    .order-placed-container {
 
         .order-placed {
+            width: 100%;
             display: flex;
-            flex-direction: row;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-
-            h2 {
-                margin: 0;
-                padding: 0;
-            }
+            justify-content: center;
 
             .success-icon {
                 margin-left: 0.5em;
                 color: rgb(13, 255, 0);
-                font-size: 35px;
+                font-size: 45px;
             }
 
             .failed-icon {
@@ -326,6 +332,28 @@
                 font-size: 35px;
             }
         }
-    }
 
+
+
+        .order-placed-wrapper {
+            min-width: 100%;
+
+
+            h2,
+            p {
+                margin: 0;
+                padding: 0;
+            }
+
+            .shipping-to,
+            .order-details {
+                border: 3px solid white;
+                border-radius: 20px;
+                padding: 20px;
+            }
+
+
+        }
+
+    }
 }

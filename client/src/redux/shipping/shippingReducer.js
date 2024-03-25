@@ -1,8 +1,9 @@
+import { saveShippingInfo } from "./shippingAction";
 import { SAVE_AMOUNT, SAVE_SHIPPING_INFO, SAVE_SHIPPING_METHOD } from "./shippingTypes";
 import axios from "axios";
 
 const initialState = {
-    shippingInfo: JSON.parse(localStorage.getItem("shippingInfo")) || {},
+    shippingInfo: localStorage.getItem("shippingInfo")  ? JSON.parse(localStorage.getItem("shippingInfo")) :  {},
     shippingMethod: "prepaid",
     orderSummary: {},
     amount: null
@@ -55,6 +56,24 @@ export const postShippingDetails = () => {
         }
     };
 };
+
+export const getSavedShippingInfo = () => {
+    return async (dispatch, getState) => {
+        try {
+            const state = getState();
+            const userDetails = state.userDetails.userDetails;
+            const userId = userDetails.user._id;
+
+            const response = await axios.get(`http://localhost:5000/api/checkout/getshippingdetails?userId=${userId}`);
+            console.log(response)
+            localStorage.setItem("shippingInfo", JSON.stringify(response.data.shippingInfo));
+            dispatch(saveShippingInfo(response.data.shippingInfo));
+            console.log("shippingdata retrived successfully");
+        } catch (error) {
+            console.log("Error retrieving shipping details:", error);
+        }
+    }
+}
 
 export const placeCodOrder = () => {
     return async (dispatch, getState) => {

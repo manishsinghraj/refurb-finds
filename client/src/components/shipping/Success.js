@@ -1,12 +1,12 @@
 import React from 'react';
-import { IoMdDoneAll } from "react-icons/io";
+import { OrderPlaced } from './OrderPlaced';
 
-export const Success = () => {
+export const Success = ({ paymentStatus }) => {
   return (
     <>
       <div className='success'>
-        <h2 className='success-heading'>Payment Successful</h2>
-        <IoMdDoneAll className='success-icon' />
+        <h2 className='success-heading'>Payment Successful</h2>       
+        <OrderPlaced paymentStatus={paymentStatus}/>
       </div>
     </>
   )

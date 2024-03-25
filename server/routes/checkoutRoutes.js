@@ -1,9 +1,10 @@
 const express = require("express");
 const { makePayment } = require("../controller/stripePaymentController");
-const { shippingDetails } = require("../controller/shippingController");
+const { postShippingDetails, getShippingDetails } = require("../controller/shippingController");
 const router = express.Router();
 
 router.post("/makepayment", makePayment);
-router.post("/shippingdetails", shippingDetails);
+router.post("/shippingdetails", postShippingDetails);
+router.get("/getshippingdetails", getShippingDetails);
 
 module.exports = router
