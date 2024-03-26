@@ -213,7 +213,7 @@ export const Shipping = () => {
                             {currentStep !== 1 && (
                                 <button className={`proceed-btn ${currentStep === 1 || currentStep === stepperConfig.length ? "hide" : ""}`} onClick={handlePrevious}>Back</button>
                             )}
-                            <button disabled={isDisabled} className={`proceed-btn ${isDisabled ? "disabled" : ""} ${currentStep === 1 || currentStep === stepperConfig.length ? "continue-first-step" : ""}`} onClick={handleNext}>
+                            <button disabled={isDisabled} className={`proceed-btn  ${isDisabled ? "disabled" : ""} ${currentStep === 1 || currentStep === stepperConfig.length ? "continue-first-step" : ""}`} onClick={handleNext}>
                                 {currentStep === stepperConfig.length - 1 ? shippingMethod === "cod" ? "Place Order" : "Make Payment" : "Continue"}
                             </button>
                         </div>
