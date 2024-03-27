@@ -32,8 +32,8 @@ export const Footer = () => {
             <p>Now available on both Android and IOS</p>
           </div>
           <div className='footer__mid__logo'>
-            <a href='https://play.google.com/store/games?hl=en_IN&gl=US&pli=1' target='blank'><img src="google-play.png" alt='google-logo'></img></a>
-            <a href='https://www.apple.com/in/app-store/' target='blank'><img src="app-store.png" alt='app-store-logo'></img></a>
+            <a href={process.env.REACT_APP_GOOGLE_PLAY} target='blank'><img src="google-play.png" alt='google-logo'></img></a>
+            <a href={process.env.REACT_APP_APP_STORE} target='blank'><img src="app-store.png" alt='app-store-logo'></img></a>
           </div>
         </div>
 

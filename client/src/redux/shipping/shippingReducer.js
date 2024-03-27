@@ -1,10 +1,14 @@
 import { saveShippingInfo } from "./shippingAction";
 import { SAVE_AMOUNT, SAVE_SHIPPING_INFO, SAVE_SHIPPING_METHOD } from "./shippingTypes";
 import axios from "axios";
+import { loadStripe } from '@stripe/stripe-js';
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+const SHIPPING_METHOD_PREPAID = process.env.REACT_APP_SHIPPING_METHOD_PREPAID;
+
 
 const initialState = {
     shippingInfo: localStorage.getItem("shippingInfo")  ? JSON.parse(localStorage.getItem("shippingInfo")) :  {},
-    shippingMethod: "prepaid",
+    shippingMethod: SHIPPING_METHOD_PREPAID,
     orderSummary: {},
     amount: null
 };
@@ -47,8 +51,7 @@ export const postShippingDetails = () => {
                 shippingInfo: shippingInfo,
                 userId: userDetails.user._id
             }
-            console.log("shippingdata", shippingData);
-            const response = await axios.post("http://localhost:5000/api/checkout/shippingdetails", shippingData);
+            const response = await axios.post(API_BASE_URL + "checkout/shippingdetails", shippingData);
             localStorage.setItem('shippingInfo', JSON.stringify(response.data.shippingInfo));
             console.log("shippingdata posted successfully");
         } catch (error) {
@@ -64,8 +67,7 @@ export const getSavedShippingInfo = () => {
             const userDetails = state.userDetails.userDetails;
             const userId = userDetails.user._id;
 
-            const response = await axios.get(`http://localhost:5000/api/checkout/getshippingdetails?userId=${userId}`);
-            console.log(response)
+            const response = await axios.get(API_BASE_URL + `checkout/getshippingdetails?userId=${userId}`);
             localStorage.setItem("shippingInfo", JSON.stringify(response.data.shippingInfo));
             dispatch(saveShippingInfo(response.data.shippingInfo));
             console.log("shippingdata retrived successfully");
@@ -103,8 +105,7 @@ export const placeCodOrder = () => {
                 }
             }
 
-            console.log("orderData", orderData);
-            const response = await axios.post("http://localhost:5000/api/order/placecodorder", orderData);
+            const response = await axios.post(API_BASE_URL + "order/placecodorder", orderData);
             console.log("cod order placed successfully");
             return response;
 
@@ -114,4 +115,32 @@ export const placeCodOrder = () => {
         }
     }
 }
+
+export const makePayment = async (cartDetails, userId, amount ) => {
+    const stripe = await loadStripe(process.env.REACT_APP_STRIPE_PK_KEY);
+
+    const body = {
+        products: cartDetails,
+        userId: userId,
+        amount: amount
+    }
+
+    const response = await fetch(API_BASE_URL + "checkout/makepayment", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(body)
+    });
+
+    const session = await response.json();
+
+    const result = stripe.redirectToCheckout({
+        sessionId: session.id
+    })
+
+    if (result.error) {
+        console.log(result.error)
+    }
+}   
 

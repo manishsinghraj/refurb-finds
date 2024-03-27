@@ -3,6 +3,8 @@ import { MdCancel } from "react-icons/md";
 import { useSelector } from 'react-redux';
 import { OrderSummary } from './OrderSummary';
 import { IoIosCheckmarkCircle } from "react-icons/io";
+const PAYMENT_SUCCESS = process.env.REACT_APP_PAYMENT_SUCCESS;
+const STATUS_OK = process.env.REACT_APP_STATUS_OK;
 
 export const OrderPlaced = ({ orderPlacedDetails, paymentStatus }) => {
   const [orderPlaced, setOrderPlaced] = useState(false);
@@ -16,10 +18,9 @@ export const OrderPlaced = ({ orderPlacedDetails, paymentStatus }) => {
   const zip = shippingInfo.zip
   const phone = shippingInfo.phone
 
-  console.log(shippingInfo)
 
   useEffect(() => {
-    if ((orderPlacedDetails && orderPlacedDetails.status === 200) || paymentStatus === "success") {
+    if ((orderPlacedDetails && orderPlacedDetails.status === STATUS_OK) || paymentStatus === PAYMENT_SUCCESS) {
       setOrderPlaced(true);
     } else {
       setOrderPlaced(false);
