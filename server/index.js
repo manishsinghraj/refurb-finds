@@ -9,8 +9,13 @@ const userRoutes = require("./routes/userRoutes");
 const checkoutRoutes = require("./routes/checkoutRoutes");
 const stripeWebhookRoutes = require("./routes/stripeWebhookRoutes");
 const orderRoutes = require("./routes/orderRoutes");
+const FRONTEND_DOMAIN = process.env.FRONTEND_DOMAIN;
 
-app.use(cors());
+
+app.use(cors({
+    origin: FRONTEND_DOMAIN
+}));
+
 app.use("/api/stripewebhook", stripeWebhookRoutes);
 app.use(express.json());
 
