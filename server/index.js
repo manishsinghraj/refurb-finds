@@ -12,7 +12,7 @@ const orderRoutes = require("./routes/orderRoutes");
 const FRONTEND_DOMAIN = process.env.FRONTEND_DOMAIN;
 
 app.use(cors({
-    origin: '*'
+    origin: FRONTEND_DOMAIN
 }));
 
 app.use("/api/stripewebhook", stripeWebhookRoutes);
