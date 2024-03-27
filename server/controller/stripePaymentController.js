@@ -3,6 +3,8 @@ dotenv.config();
 const express = require("express");
 const router = express.Router();
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+const STRIPE_SUCCESS_URL = process.env.STRIPE_SUCCESS_URL;
+const STRIPE_CANCEL_URL = process.env.STRIPE_CANCEL_URL;
 
 const makePayment = async (req, res) => {
     const { products, userId } = req.body; 
@@ -58,8 +60,8 @@ const makePayment = async (req, res) => {
         line_items: lineItems,
         mode: "payment",
         customer: customer.id,
-        success_url: "http://localhost:3000/shipping?step=4&payment=success",
-        cancel_url: "http://localhost:3000/shipping?step=4&payment=cancelled",
+        success_url: STRIPE_SUCCESS_URL,
+        cancel_url: STRIPE_CANCEL_URL,
     });
 
     console.log("session", session)

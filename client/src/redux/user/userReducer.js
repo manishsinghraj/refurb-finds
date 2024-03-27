@@ -1,6 +1,8 @@
 import axios from "axios";
 import { REGISTER_USER_FAILURE, REGISTER_USER_REQUEST, REGISTER_USER_SUCCESS, SIGNIN_USER_FAILURE, SIGNIN_USER_REQUEST, SIGNIN_USER_SUCCESS, SIGN_OUT_USER } from "./userTypes"
 import { registerUserFailure, registerUserRequest, registerUserSuccess, signInUserFailure, signInUserRequest, signInUserSuccess } from "./userAction";
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 
 
 const initialState = {
@@ -84,7 +86,7 @@ export const registerUser = (userData) => {
     return async (dispatch) => {
         dispatch(registerUserRequest());
         try {
-            const response = await axios.post("http://localhost:5000/api/user/register/", userData);
+            const response = await axios.post(API_BASE_URL + "user/register/", userData);
             const newUser = response.data;
             dispatch(registerUserSuccess(newUser));
             localStorage.setItem('user', JSON.stringify(newUser));
@@ -109,7 +111,7 @@ export const signUser = (userData) => {
     return async (dispatch) => {
         dispatch(signInUserRequest());
         try {
-            const response = axios.post("http://localhost:5000/api/user/signin/", userData);
+            const response = axios.post(API_BASE_URL + "user/signin/", userData);
             const user = (await response).data;
             dispatch(signInUserSuccess(user));
             localStorage.setItem('user', JSON.stringify(user));

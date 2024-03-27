@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateAmount } from '../../redux/shipping/shippingAction';
+const SHIPPING_METHOD_COD = process.env.REACT_APP_SHIPPING_METHOD_COD;
+const SHIPPING_CHARGE = process.env.REACT_APP_SHIPPING_CHARGE;
 
 export const OrderSummary = () => {
   const dispatch = useDispatch();
@@ -14,7 +16,7 @@ export const OrderSummary = () => {
   const subTotal = cartDetails?.reduce((total, item) => total + (item.price * item.quantity), 0);
 
   useEffect(() => {
-    const newShippingCharge = sippingMethod === "cod" ? (subTotal * 15) / 100 : 0;
+    const newShippingCharge = sippingMethod === SHIPPING_METHOD_COD ? (subTotal * SHIPPING_CHARGE) / 100 : 0;
     const newTotalCharge = subTotal + newShippingCharge;
 
     setShippingCharge(newShippingCharge);

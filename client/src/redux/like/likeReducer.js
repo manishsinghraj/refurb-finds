@@ -1,5 +1,6 @@
 import { ADD_TO_LIKE, REMOVE_FROM_LIKE } from "./likeTypes";
 import axios from "axios";
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 const initialState = {
     likedProductIds: JSON.parse(localStorage.getItem('likedProductIds')) || []
@@ -53,7 +54,7 @@ export const postLikeItems = (likedProductId, userId) => {
 
     return async (dispatch) => {
         try {
-            const response = await axios.post("http://localhost:5000/api/user/likeitems/", likeItemsData);
+            const response = await axios.post(API_BASE_URL + "user/likeitems/", likeItemsData);
 
             const userFromLocalStorage = localStorage.getItem('user');
             if (userFromLocalStorage !== "undefined") {
@@ -76,7 +77,7 @@ export const removeLikeItems = (likedProductId, userId) => {
 
     return async (dispatch) => {
         try {
-            const response = await axios.patch("http://localhost:5000/api/user/likeitems/", likeItemsData);
+            const response = await axios.patch(API_BASE_URL + "user/likeitems/", likeItemsData);
 
             const userFromLocalStorage = localStorage.getItem('user');
             if (userFromLocalStorage !== "undefined") {

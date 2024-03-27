@@ -1,5 +1,6 @@
 import { ADD_PRODUCT_DETAILS_TO_CART, ADD_TO_CART, REMOVE_CART_ITEM, UPDATE_CART_ITEM_QUANTITY } from "./cartTypes";
 import axios from "axios";
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 const initialState = {
     cart: JSON.parse(localStorage.getItem('user'))?.user.cartItems || [],
@@ -79,7 +80,7 @@ export const postCartItems = (cartItemId, userId) => {
                 userId: userId
             };
 
-            const response = await axios.post("http://localhost:5000/api/user/cartitems/", cartItemsData);
+            const response = await axios.post(API_BASE_URL + "user/cartitems/", cartItemsData);
             const userFromLocalStorage = localStorage.getItem('user');
             if (userFromLocalStorage !== "undefined") {
                 localStorage.setItem('user', JSON.stringify(response.data));
@@ -100,7 +101,7 @@ export const removeCartItems = (cartItemId, userId) => {
 
     return async (dispatch) => {
         try {
-            const response = await axios.patch("http://localhost:5000/api/user/cartitems/", cartItemsData);
+            const response = await axios.patch(API_BASE_URL + "user/cartitems/", cartItemsData);
             const userFromLocalStorage = localStorage.getItem('user');
             if (userFromLocalStorage !== "undefined") {
                 localStorage.setItem('user', JSON.stringify(response.data));

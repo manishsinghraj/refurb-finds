@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo } from 'react';
-import 'react-loading-skeleton/dist/skeleton.css'
 import { Carousel } from '../components/home/Carousel'
 import { ProductList } from '../components/home/ProductList';
 import { useDispatch, useSelector } from 'react-redux';

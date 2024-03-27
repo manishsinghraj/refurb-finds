@@ -6,8 +6,11 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { OrderSummary } from './OrderSummary'
 import { saveShippingInfo } from '../../redux/shipping/shippingAction'
 import { useDispatch, useSelector } from 'react-redux';
-import { loadStripe } from '@stripe/stripe-js';
-import { getSavedShippingInfo, placeCodOrder, postShippingDetails } from '../../redux/shipping/shippingReducer';
+import { getSavedShippingInfo, makePayment, placeCodOrder, postShippingDetails } from '../../redux/shipping/shippingReducer';
+const SHIPPING_METHOD_COD = process.env.REACT_APP_SHIPPING_METHOD_COD;
+const PAYMENT_SUCCESS = process.env.REACT_APP_PAYMENT_SUCCESS;
+const PAYMENT_CANCEL = process.env.REACT_APP_PAYMENT_CANCEL;
+const STATUS_OK = process.env.REACT_APP_STATUS_OK;
 
 export const Shipping = () => {
     const dispatch = useDispatch();
@@ -42,7 +45,6 @@ export const Shipping = () => {
     useEffect(() => {
 
         if (Object.keys(shippingInfo).length > 0) {
-            console.log("first");
             setIsDisabled(false);
         } else {
             setIsDisabled(true);
@@ -97,41 +99,15 @@ export const Shipping = () => {
 
 
 
-    const makePayment = async () => {
-        const stripe = await loadStripe('pk_test_51OwGqfSHGLZQBGD1CSPXJeZ4lOJjQ4m4NFbD3Qdt41KA8abE84z9xSLQi2pVmaEO4h5uR0HLg5hQ7kY85CfZJxCz00DDl4JPYY');
-
-        const body = {
-            products: cartDetails,
-            userId: userDetails.user._id,
-            amount: amount
-        }
-
-        const response = await fetch("http://localhost:5000/api/checkout/makepayment", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(body)
-        });
-
-        const session = await response.json();
-
-        const result = stripe.redirectToCheckout({
-            sessionId: session.id
-        })
-
-        if (result.error) {
-            console.log(result.error)
-        }
-    }
+    
 
 
 
     const handleNext = async (e) => {
         e.preventDefault();
-        if (stepperConfig[currentStep - 1]?.name === "Order Summary" && shippingMethod !== "cod") {
-            makePayment();
-        } else if (stepperConfig[currentStep - 1]?.name === "Order Summary" && shippingMethod === "cod") {
+        if (stepperConfig[currentStep - 1]?.name === "Order Summary" && shippingMethod !== SHIPPING_METHOD_COD) {
+            makePayment(cartDetails, userDetails.user._id, amount);
+        } else if (stepperConfig[currentStep - 1]?.name === "Order Summary" && shippingMethod === SHIPPING_METHOD_COD) {
             const response = await dispatch(placeCodOrder());
             setOrderPlacedDetails(response);
             setCurrentStep((prevStep) => {
@@ -168,7 +144,6 @@ export const Shipping = () => {
         setIsDisabled(false)
     };
 
-    console.log(isDisabled)
 
     return (
         <>
@@ -190,9 +165,9 @@ export const Shipping = () => {
                                     ${currentStep === index + 1 ? "active" : ""}`}
                                         ref={(el) => (stepRef.current[index] = el)}>
                                         <div className='step-number'>
-                                            {currentStep > index + 1 || isComplete || paymentStatus === "success" || (orderPlacedDetails && orderPlacedDetails.status === 200) ? (
+                                            {currentStep > index + 1 || isComplete || paymentStatus === PAYMENT_SUCCESS || (orderPlacedDetails && orderPlacedDetails.status === STATUS_OK) ? (
                                                 <span>&#10003;</span> // Checkmark
-                                            ) : paymentStatus === "cancelled" || (orderPlacedDetails && orderPlacedDetails.status !== 200) ? (
+                                            ) : paymentStatus === PAYMENT_CANCEL || (orderPlacedDetails && orderPlacedDetails.status !== STATUS_OK) ? (
                                                 <span style={{color:"red"}}>&#10005;</span> // Cross mark
                                             ) : (
                                                 index + 1
@@ -214,7 +189,7 @@ export const Shipping = () => {
                                 <button className={`proceed-btn ${currentStep === 1 || currentStep === stepperConfig.length ? "hide" : ""}`} onClick={handlePrevious}>Back</button>
                             )}
                             <button disabled={isDisabled} className={`proceed-btn  ${isDisabled ? "disabled" : ""} ${currentStep === 1 || currentStep === stepperConfig.length ? "continue-first-step" : ""}`} onClick={handleNext}>
-                                {currentStep === stepperConfig.length - 1 ? shippingMethod === "cod" ? "Place Order" : "Make Payment" : "Continue"}
+                                {currentStep === stepperConfig.length - 1 ? shippingMethod === SHIPPING_METHOD_COD ? "Place Order" : "Make Payment" : "Continue"}
                             </button>
                         </div>
                     }

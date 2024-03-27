@@ -11,8 +11,6 @@ import { Orders } from '../pages/Orders';
 import ScrollToTop from '../components/utils/ScrollToTop';
 import { Accounts } from '../pages/Accounts';
 import { Shipping } from '../components/shipping/Shipping';
-import { Failed } from '../components/shipping/Failed';
-import { Success } from '../components/shipping/Success';
 
 
 export const Routers = () => {

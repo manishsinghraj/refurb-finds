@@ -22,6 +22,7 @@ const CartList = ({ cartDetails }) => {
         <div className='shopping__cart-items'>
             {cartDetails && cartDetails.length > 0 ? (
                 <>
+                    <h1 className='cart-heading'>Cart Items 🛒</h1>
                     {cartDetails.map((item, _) => {
                         return <CartCard key={item.id} item={item} />;
                     })}
