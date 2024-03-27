@@ -11,8 +11,10 @@ const stripeWebhookRoutes = require("./routes/stripeWebhookRoutes");
 const orderRoutes = require("./routes/orderRoutes");
 const FRONTEND_DOMAIN = process.env.FRONTEND_DOMAIN;
 
+console.log(FRONTEND_DOMAIN)
+
 app.use(cors({
-    origin: FRONTEND_DOMAIN
+    origin: ['https://refurb-finds.vercel.app']
 }));
 
 app.use("/api/stripewebhook", stripeWebhookRoutes);
