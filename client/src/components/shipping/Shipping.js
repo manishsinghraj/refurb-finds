@@ -165,9 +165,9 @@ export const Shipping = () => {
                                     ${currentStep === index + 1 ? "active" : ""}`}
                                         ref={(el) => (stepRef.current[index] = el)}>
                                         <div className='step-number'>
-                                            {currentStep > index + 1 || isComplete || paymentStatus === PAYMENT_SUCCESS || (orderPlacedDetails && orderPlacedDetails.status === STATUS_OK) ? (
+                                            {currentStep > index + 1 || isComplete || paymentStatus === PAYMENT_SUCCESS || (orderPlacedDetails && orderPlacedDetails.status === parseInt(STATUS_OK)) ? (
                                                 <span>&#10003;</span> // Checkmark
-                                            ) : paymentStatus === PAYMENT_CANCEL || (orderPlacedDetails && orderPlacedDetails.status !== STATUS_OK) ? (
+                                            ) : paymentStatus === PAYMENT_CANCEL || (orderPlacedDetails && orderPlacedDetails.status !== parseInt(STATUS_OK)) ? (
                                                 <span style={{color:"red"}}>&#10005;</span> // Cross mark
                                             ) : (
                                                 index + 1

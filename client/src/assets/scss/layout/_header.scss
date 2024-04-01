@@ -3,6 +3,7 @@
 .container {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 0 40px;
     color: utils.$color-white;
     border-bottom: 2px solid utils.$color-cyan-lightest;
@@ -10,6 +11,7 @@
     top: 0;
     z-index: 1000;
     background-color: utils.$color-black-low-contrast-1;
+    width: 100vw;
 
     .header {
         column-gap: 1em;
@@ -17,6 +19,8 @@
 
         &__logo {
             display: flex;
+            justify-content: center;
+            align-items: center;
 
             img {
                 width: 85px;
@@ -120,17 +124,28 @@
                 color: utils.$color-cyan-lightest;
             }
 
+
             &__icons {
                 font-size: 25px;
                 display: flex;
                 align-items: center;
                 column-gap: 3em;
 
+                &__hamburger,
+                &__hamburger-close {
+                    color: red;
+                    font-size: 20px;
+                }
+
+
 
                 &__like,
                 &__cart,
-                &__user {
+                &__user,
+                &__hamburger,
+                &__hamburger-close {
                     position: relative;
+
 
                     &__badge {
                         position: absolute;
@@ -148,6 +163,7 @@
                         justify-content: center;
                         z-index: 10;
                     }
+
 
                     &__dropdown {
                         position: absolute;
@@ -184,8 +200,16 @@
                     .active {
                         color: utils.$color-red;
                     }
+
+
                 }
             }
+
+            .menu {
+                display: none;
+            }
+
+
 
             li {
                 cursor: pointer;
@@ -242,6 +266,136 @@
                 &-item:hover {
                     text-decoration: underline;
                     cursor: pointer;
+                }
+            }
+        }
+    }
+}
+
+
+@include utils.breakpoint(small) {
+    .container {
+        padding: 0 20px;
+
+        .header {
+            column-gap: 2em;
+            align-items: center;
+
+            &__logo {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                img {
+                    width: 35%;
+                    height: 30px;
+                }
+
+                &-text {
+                    font-size: 15px;
+                }
+
+            }
+
+            &__search {
+
+                &__box {
+                    min-width: 130px;
+                    height: 25px;
+
+                    &-input {
+                        font-size: 10px;
+                    }
+
+                    &-icon {
+                        font-size: 15px;
+                    }
+                }
+            }
+
+            .search__list {
+                position: fixed;
+                display: flex;
+                flex-direction: column;
+                background-color: utils.$color-white;
+                width: 100vw;
+                top: 50px;
+                left: 50%;
+                transform: translateX(-40%);
+                z-index: 10;
+                color: utils.$color-black;
+                font-size: 12px;
+                overflow-y: scroll;
+                max-height: 500px;
+                padding: 10px;
+
+                .user-text {
+                    font-size: 12px;
+                    line-height: 1;
+                    font-weight: 700;
+                }
+
+                &-item {
+                    display: flex;
+                    gap: 1em;
+                    margin-bottom: 5px;
+                    padding: 10px;
+
+                    img {
+                        width: 30px;
+                        height: 30px;
+                    }
+                }
+
+                &-item:hover {
+                    background-color: utils.$color-cyan-light;
+                    cursor: pointer;
+                }
+
+
+            }
+
+            &__navigation {
+
+                .menu {
+                    display: block;
+                }
+
+                &__menu {
+                    li {
+                        display: none;
+                    }
+                }
+
+                &__menu-active {
+                    gap: 3em;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    list-style: none;
+                    padding: 40px 20px;
+
+                    position: fixed;
+                    top: 0px;
+                    right: 0;
+                    width: 200px;
+                    height: 100vh;
+                    background-color: #2d2d2d;
+                    margin-top: 0;
+                    z-index: 10;
+
+                    .icon {
+                        clear: both;
+                        font-size: 25px;
+                    }
+                }
+
+                &__icons {
+
+                    &__hamburger,
+                    &__hamburger-close {
+                        z-index: 100;
+                    }
                 }
             }
         }

@@ -122,7 +122,7 @@ export const SignUp = () => {
                     </div>
                 </div>
             </section>
-            {error && <Error error={error} />}
+            {/* {error && <Error error={error} />} */}
         </>
     )
 }

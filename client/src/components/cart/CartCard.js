@@ -20,7 +20,7 @@ export const CartCard = ({ item }) => {
         dispatch(removeCartItems(item._id, userDetails.user._id));
     }
 
-    
+
 
     return (
         <>
@@ -28,24 +28,26 @@ export const CartCard = ({ item }) => {
                 <div className='shopping__cart-item-image'>
                     <img src={item.images[0]} alt={item.title}></img>
                 </div>
-                <div className='shopping__cart-item-details'>
-                    <h1>{item.title}</h1>
-                    <label htmlFor="quantity">Qty </label>
-                    <select name='quantity' id='quantity' value={item.quantity} onChange={handleQuantityChange}>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                    </select>
-                </div>
-                <div className='shopping__cart-item-price'>
-                    <div >
-                        <span>₹ {item.price}</span>
-                        <div><MdDelete className='icon' onClick={handleRemoveCartItem} /></div>
+                <div className='shopping__cart-item-detail'>
+                    <div className='shopping__cart-item-detail-details'>
+                        <h1>{item.title}</h1>
+                        <label htmlFor="quantity">Qty </label>
+                        <select name='quantity' id='quantity' value={item.quantity} onChange={handleQuantityChange}>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                    </div>
+                    <div className='shopping__cart-item-price'>
+                        {/* <div > */}
+                            <span>₹ {item.price}</span>
+                        {/* </div> */}
+                            <div><MdDelete className='icon' onClick={handleRemoveCartItem} /></div>
                     </div>
                 </div>
             </div>
-                    
+
         </>
     )
 }

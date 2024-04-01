@@ -3,6 +3,8 @@ import { ProductCard } from '../home/ProductCard';
 import { useDispatch, useSelector } from "react-redux";
 import { MdOutlineStar, MdOutlineStarBorder } from 'react-icons/md';
 import { sortBy, starFilterIndex } from '../../redux/filters/filtersAction';
+import { FaFilter } from "react-icons/fa";
+import { IoClose } from 'react-icons/io5';
 
 export const ShopProductList = () => {
     const dispatch = useDispatch();
@@ -28,7 +30,7 @@ export const ShopProductList = () => {
             });
         }
 
-       filteredProducts =  filteredProducts.filter((item) => item.price >= currentSliderValue);
+        filteredProducts = filteredProducts.filter((item) => item.price >= currentSliderValue);
 
         if (currentSort === "Price:Low to high") {
             filteredProducts.sort((a, b) => a.price - b.price);
@@ -92,17 +94,20 @@ export const ShopProductList = () => {
         );
     }
 
+    const [openFilter, setOpenFilter] = useState(false);
+
     return (
         <div className='shop__products'>
-            <div className='filter-section'>
+
+            <div className={` ${openFilter ? "open-filter" : "filter-section"}`}>
                 <div className='filters'>
                     <h1>Filters</h1>
                     <div className='customer__review'>
-                        <label >Reviews : </label>
+                        <label className='customer__review__label'>Reviews : </label>
                         {starFilters}
                     </div>
                     <div className='product__sort'>
-                        <label>Sort : </label>
+                        <label className='product__sort__label'>Sort : </label>
                         <select value={currentSort} onChange={(e) => handleSort(e)}>
                             <option value="Price:Low to high" >Price:Low to high</option>
                             <option value="Price:High to Low">Price:High to Low</option>
@@ -111,7 +116,7 @@ export const ShopProductList = () => {
                         </select>
                     </div>
                     <div className='product__price__range'>
-                        <label htmlFor='price-slider'>Price : </label>
+                        <label htmlFor='price-slider' className='product__price__range__label'>Price : </label>
                         <div>
                             <input name="price-slider" type='range' max={maxPrice} min={minPrice} value={currentSliderValue}
                                 onChange={(e) => handleSliderChange(e)}
@@ -127,6 +132,11 @@ export const ShopProductList = () => {
             </div>
             <div className='all-product'>
                 <div className='product__result-count'>
+                    <span className='filter icon' onClick={() => setOpenFilter(!openFilter)}>
+                        {!openFilter ?
+                            <FaFilter /> :
+                            <IoClose />}
+                    </span>
                     <h3>{filteredProduct.length} results</h3>
                 </div>
                 <div className='product'>

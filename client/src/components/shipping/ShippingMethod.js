@@ -58,7 +58,7 @@ export const ShippingMethod = () => {
       {selectedMethod === SHIPPING_METHOD_PREPAID &&
         (<div style={{ display: "flex", alignItems: "center", gap: "0.5em", marginTop: "25px" }}>
           <CiCircleInfo style={{ color: "red", fontSize: "25px" }} />
-          <span style={{ fontStyle: "italic", padding: 0, margin: 0 }}>Copy this 4000003560000008 in order to test Payment</span>
+          <span className='span-info' style={{ fontStyle: "italic", padding: 0, margin: 0 }}>Copy this 4000003560000008 in order to test Payment</span>
         </div>)}
     </section>
   );
