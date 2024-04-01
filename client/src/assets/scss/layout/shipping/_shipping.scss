@@ -123,14 +123,19 @@
             }
 
             .shipping-method {
+                width: 80%;
+
+
                 .radio-wrapper {
                     display: flex;
                     flex-direction: column;
                     width: 100%;
+                    font-size: 13px;
 
                     .radio {
                         display: flex;
                         justify-content: space-between;
+                        align-items: center;
                         border-radius: 10px;
                         border: 1px solid utils.$color-grey;
                         padding: 10px;
@@ -344,6 +349,157 @@
                 border: 2px solid utils.$color-white;
                 border-radius: 20px;
                 padding: 20px;
+            }
+        }
+    }
+}
+
+
+@include utils.breakpoint(small) {
+
+    .shipping {
+        margin: 10px 20px;
+
+        &-container {
+            padding: 20px 20px;
+
+
+
+            .steps {
+                margin-bottom: 10px;
+
+
+                .step-number {
+                    width: 20px;
+                    height: 20px;
+                    margin-bottom: 10px;
+                }
+
+                .step-name {
+                    font-size: 8px;
+                }
+
+            }
+
+            .step-component {
+                margin: 20px auto;
+                padding: 25px;
+                max-width: 100%;
+                border-radius: 20px;
+
+                .shipping-info {
+                    .input-wrapper {
+                        margin-bottom: 1em;
+                        gap: 1em;
+                    }
+
+                    input {
+                        width: 100%;
+                        height: 25px;
+                        border-radius: 5px;
+                        padding: 5px;
+                        font-size: 12px;
+                    }
+
+                    .save {
+                        gap: 0.5em;
+
+                        .btn {
+                            width: 60px;
+                            height: 25px;
+                            font-size: 16px;
+                        }
+                    }
+                }
+
+                .shipping-method {
+                    width: 100%;
+
+                    .span-info {
+                        font-size: 12px;
+                    }
+
+                    .radio-wrapper {
+                        width: 100%;
+
+                        .radio {
+                            font-size: 12px;
+                        }
+                    }
+                }
+
+                .order-summary {
+
+                    .order-summary-table {
+
+                        th,
+                        td {
+                            font-size: 12px;
+                            padding: 2px 12px;
+                        }
+
+                        // td:first-child>div {
+                        //     /* Apply styles to wrap the item title */
+                        //     overflow: hidden;
+                        //     white-space: nowrap;
+                        //     text-overflow: ellipsis;
+                        // }
+
+                        .total-charge {
+
+                            &-title {
+                                font-size: 14px;
+                            }
+
+                            &-price {
+                                font-size: 14px;
+                            }
+                        }
+                    }
+                }
+
+                .shipping-summary-table {
+                    font-size: 12px;
+                }
+            }
+
+            .proceed {
+                margin: 0 10px;
+
+                &-btn {
+                    width: 80px;
+                    height: 40px;
+                    font-size: 13px;
+                    border: none;
+                }
+            }
+        }
+
+        .order-placed-container {
+
+            .order-failed {
+                font-size: 14px;
+            }
+
+            .order-placed {
+                width: 100%;
+                padding: 5px;
+                font-size: 12px;
+ 
+                .success-icon {
+                    font-size: 35px;
+                }
+            }
+
+            .order-placed-wrapper {
+
+                .shipping-to,
+                .order-details {
+                    display: flex;
+                    flex-wrap: wrap;
+                    font-size: 14px;
+                    padding: 12px;
+                }
             }
         }
     }

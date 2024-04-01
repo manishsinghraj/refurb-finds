@@ -47,14 +47,14 @@ export const ProductCard = ({ product }) => {
                     <span className='star-icon'>
                         <StarRating product={product} />
                     </span>
-                    <span>{product.reviewCount}</span>
+                    <span className='product-rating-count'>{product.reviewCount}</span>
                 </div>
                 <div className='product-interact'>
                     <p className='product-price'><span>₹</span> {product.price}</p>
                     <span
-                        className={`product__interact__icons__like ${isLiked  ? "active" : ""}`}
+                        className={`product__interact__icons__like ${isLiked ? "active" : ""}`}
                         onClick={handleLike}>
-                        {isLiked  ? <FaHeart /> : <FaRegHeart />}
+                        {isLiked ? <FaHeart /> : <FaRegHeart />}
                     </span>
                 </div>
             </div>

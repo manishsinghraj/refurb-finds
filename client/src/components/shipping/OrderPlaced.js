@@ -20,7 +20,8 @@ export const OrderPlaced = ({ orderPlacedDetails, paymentStatus }) => {
 
 
   useEffect(() => {
-    if ((orderPlacedDetails && orderPlacedDetails.status === STATUS_OK) || paymentStatus === PAYMENT_SUCCESS) {
+    if ((orderPlacedDetails && orderPlacedDetails.status === parseInt(STATUS_OK)) || paymentStatus === PAYMENT_SUCCESS) {
+      console.log("first")
       setOrderPlaced(true);
     } else {
       setOrderPlaced(false);
@@ -32,15 +33,13 @@ export const OrderPlaced = ({ orderPlacedDetails, paymentStatus }) => {
       <section className='order-placed-container'>
         <div className='order-placed'>
           {orderPlaced ?
-            (<><IoIosCheckmarkCircle className='success-icon' />
-              <h2>Your order has been placed</h2>
-            </>) :
-            (<><h2>Order couldn't be placed. Please try again later! </h2>
-              <MdCancel className='failed-icon' /></>)
+            <IoIosCheckmarkCircle className='success-icon' /> :
+            <MdCancel className='failed-icon' />
           }</div>
         {orderPlaced ?
           (<>
             <div className='order-placed-wrapper'>
+              <h2>Your order has been placed</h2>
               <h3>Shipping to</h3>
               <div className='shipping-to'>
                 <p>{firstName} {lastName}</p>
@@ -51,12 +50,12 @@ export const OrderPlaced = ({ orderPlacedDetails, paymentStatus }) => {
               </div>
               <h3>Invoice</h3>
               <div className='order-details'>
-                <OrderSummary/>
+                <OrderSummary />
               </div>
             </div>
           </>) :
-          (<><h2>Order couldn't be placed. Please try again later! </h2>
-            <MdCancel className='failed-icon' /></>)}
+          (<><h2 className='order-failed'>Order couldn't be placed. Please try again later! </h2>
+          </>)}
       </section >
     </>
   );

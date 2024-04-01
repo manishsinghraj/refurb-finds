@@ -79,3 +79,15 @@ a {
     text-decoration: none !important;
     color: inherit;
 }
+
+@include utils.breakpoint(small) {
+
+    .watermark-logo {
+        width: 45px;
+        height: 40px;
+    }
+
+    .watermark-text {
+        font-size: 25px;
+    }
+}

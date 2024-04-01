@@ -3,17 +3,22 @@ import { IoSearchSharp } from "react-icons/io5";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { LuShoppingCart } from "react-icons/lu";
 import { FaRegCircleUser } from "react-icons/fa6";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { searchProducts } from '../../redux/filters/filtersAction';
 import { SearchList } from './SearchList';
 import { UserDropDown } from './UserDropDown';
+import { GiHamburgerMenu } from "react-icons/gi";
+import { IoClose } from "react-icons/io5";
+import { signOutUser } from '../../redux/user/userAction';
 
 const Header = () => {
 
   const [searchText, setSearchText] = useState("");
+  const [openMenu, setOpenMenu] = useState(false);
+  const userDetails = useSelector((state) => state.userDetails.userDetails);
   const [displayUserDropDown, setDisplayUserDropDown] = useState(false);
-
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const search = useSelector((state) => state.filters.search);
   const products = useSelector((state) => state.data.products);
@@ -40,6 +45,12 @@ const Header = () => {
     setDisplayUserDropDown(!displayUserDropDown);
   }
 
+  const handleSignOut = () => {
+    dispatch(signOutUser());
+    navigate('/signin');
+    window.location.reload(); // need to refresh page
+  };
+
   const navLinks = [
     {
       path: "home",
@@ -53,28 +64,39 @@ const Header = () => {
     },
     {
       path: "like",
-      name: <span className='header__navigation__icons__like'> {!likeItemsCount ? <FaRegHeart /> : <FaHeart className='active' />}
+      name: openMenu ? "Like" : <span className='header__navigation__icons__like'> {!likeItemsCount ? <FaRegHeart /> : <FaHeart className='active' />}
         {likeItemsCount !== 0 ? <span className='header__navigation__icons__like__badge'>{likeItemsCount}</span> : null}
       </span>,
-      exclude: true
+      exclude: openMenu ? false :  true
     },
     {
       path: "cart",
-      name: <span className='header__navigation__icons__cart'><LuShoppingCart />
+      name: openMenu ? "Cart" : <span className='header__navigation__icons__cart'><LuShoppingCart />
         {cartItemsCount !== 0 ? <span className='header__navigation__icons__cart__badge'>{cartItemsCount}</span> : null}
       </span>,
-      exclude: true
+      exclude: openMenu ? false : true 
     },
     {
       path: null,
-      name: (
+      name: openMenu ? null : (
         <span className='header__navigation__icons__user'>
           <FaRegCircleUser onClick={handleUserAccount} />
           {displayUserDropDown ? <span className='header__navigation__icons__user__dropdown'><UserDropDown handleUserAccount={handleUserAccount} /></span> : ""}
         </span>
       ),
-      exclude: true
-    }
+      exclude: openMenu ? false : true
+    },
+    {
+      path: openMenu ? "orders" : null,
+      name: openMenu ? "orders" : null,
+      exclude: false
+    },
+    {
+      path: openMenu ? "signin" : null,
+      name: openMenu ? !userDetails ? "SignIn" : "SignOut"  : null,
+      exclude: false,
+      onClick: handleSignOut
+    },
   ]
 
   return (
@@ -102,16 +124,32 @@ const Header = () => {
         </header>
 
         <nav className='header__navigation'>
-          <ul className='header__navigation__menu'>
-            {navLinks.map((item, index) => (
-              <li key={index}>
-                <NavLink to={item.path}
-                  className={(navClass) => `${navClass.isActive ? 'header__navigation__active' : ''} ${item.exclude ? 'icon' : ''}`}>
-                  {item.name}
-                </NavLink>
-              </li>
-            ))}
+          <ul className={`${!openMenu ? "header__navigation__menu" : "header__navigation__menu-active"}`}>
+            {navLinks
+              .filter(item => item.name !== null || item.path !== null)
+              .map((item, index) => (
+                <li key={index} >
+                  <NavLink onClick={() => {
+                    setOpenMenu(false);
+                    if (item.onClick) {
+                      item.onClick();
+                    }
+                  }}
+                    to={item.path}
+                    className={(navClass) =>
+                      `${navClass.isActive ? 'header__navigation__active' : ''} ${item.exclude ? 'icon' : ''
+                      } `
+                    }>
+                    {item.name}
+                  </NavLink>
+                </li>
+              ))}
           </ul>
+          <span className='header__navigation__icons__hamburger icon menu' onClick={() => setOpenMenu(!openMenu)}>
+            {!openMenu ?
+              <GiHamburgerMenu /> :
+              <IoClose />}
+          </span>
         </nav>
 
       </div>
