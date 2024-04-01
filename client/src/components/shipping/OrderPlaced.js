@@ -38,8 +38,8 @@ export const OrderPlaced = ({ orderPlacedDetails, paymentStatus }) => {
           }</div>
         {orderPlaced ?
           (<>
-            <div className='order-placed-wrapper'>
               <h2>Your order has been placed</h2>
+            <div className='order-placed-wrapper'>
               <h3>Shipping to</h3>
               <div className='shipping-to'>
                 <p>{firstName} {lastName}</p>
