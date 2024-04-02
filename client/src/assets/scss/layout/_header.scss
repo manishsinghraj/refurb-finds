@@ -11,7 +11,7 @@
     top: 0;
     z-index: 1000;
     background-color: utils.$color-black-low-contrast-1;
-    width: 100vw;
+    // width: 100vw;
 
     .header {
         column-gap: 1em;
@@ -39,7 +39,8 @@
 
             &__box {
                 position: relative;
-                min-width: 500px;
+                min-width: 250px;
+                width: 100%;
                 display: flex;
                 align-items: center;
                 height: 40px;
@@ -272,6 +273,73 @@
     }
 }
 
+@include utils.breakpoint(medium) {
+    .container {
+        width: 100vw;
+
+        .header {
+
+            &__logo {
+                img {
+                    width: 55px;
+                    height: 50px;
+                    filter: invert(100%);
+                }
+
+                &-text {
+                    font-size: 25px;
+                }
+            }
+
+            &__search {
+                display: flex;
+                align-items: center;
+
+                &__box {
+                    position: relative;
+                    min-width: 100px;
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    height: 35px;
+                    border: 1px solid utils.$color-white;
+                    border-radius: 15px;
+
+                    &-input {
+                        color: utils.$color-white;
+                        outline: none;
+                        border: none;
+                        background: transparent;
+                        width: 100%;
+                        font-size: 14px;
+                    }
+
+                    &-icon {
+                        font-size: 30px;
+                        margin: 0 5px;
+                    }
+                }
+            }
+
+            &__navigation {
+
+                &__menu {
+                    font-size: 12px;
+
+                    .icon {
+                        font-size: 20px;
+                    }
+                }
+
+
+                &__icons {
+                    font-size: 20px;
+                }
+            }
+        }
+    }
+}
+
 
 @include utils.breakpoint(small) {
     .container {
@@ -298,7 +366,6 @@
             }
 
             &__search {
-
                 &__box {
                     min-width: 130px;
                     height: 25px;

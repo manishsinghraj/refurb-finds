@@ -13,6 +13,7 @@
 
     &_mobile {
         display: flex;
+        gap: 10px;
     }
 
     &__left {
@@ -21,6 +22,7 @@
         &__about {
             display: flex;
             flex-wrap: wrap;
+
             &_desc {
                 text-align: justify;
             }
@@ -38,7 +40,10 @@
     }
 
     &__mid {
-        min-width: 20%;
+        min-width: 30%;
+        // margin-right: 10px;
+        display: flex;
+        flex-wrap: wrap;
 
         &__logo {
             display: flex;
