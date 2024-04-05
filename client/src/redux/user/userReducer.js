@@ -90,6 +90,7 @@ export const registerUser = (userData) => {
             const newUser = response.data;
             dispatch(registerUserSuccess(newUser));
             localStorage.setItem('user', JSON.stringify(newUser));
+            localStorage.setItem('token', JSON.stringify(newUser?.token));
         } catch (error) {
             let errorMessage;
             if (error?.response?.data?.message?.code === 11000) {
@@ -116,6 +117,7 @@ export const signUser = (userData) => {
             dispatch(signInUserSuccess(user));
             localStorage.setItem('user', JSON.stringify(user));
             localStorage.setItem('likedProductIds', JSON.stringify(user.user?.likedItems));
+            localStorage.setItem('token', JSON.stringify(user?.token));
         } catch (error) {
             let errorMessage;
 

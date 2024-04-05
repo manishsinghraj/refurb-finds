@@ -69,6 +69,8 @@ const cartReducer = (state = initialState, action) => {
 //TODO:Debouncing 
 
 export const postCartItems = (cartItemId, userId) => {
+    const token = JSON.parse(localStorage.getItem('token'));
+
     return async (dispatch, getState) => {
         try {
             const state = getState();
@@ -80,7 +82,11 @@ export const postCartItems = (cartItemId, userId) => {
                 userId: userId
             };
 
-            const response = await axios.post(API_BASE_URL + "user/cartitems/", cartItemsData);
+            const response = await axios.post(API_BASE_URL + "user/cartitems/", cartItemsData, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
             const userFromLocalStorage = localStorage.getItem('user');
             if (userFromLocalStorage !== "undefined") {
                 localStorage.setItem('user', JSON.stringify(response.data));
@@ -94,6 +100,8 @@ export const postCartItems = (cartItemId, userId) => {
 
 export const removeCartItems = (cartItemId, userId) => {
 
+    const token = JSON.parse(localStorage.getItem('token'));
+
     const cartItemsData = {
         cartItemId: cartItemId,
         userId: userId
@@ -101,7 +109,11 @@ export const removeCartItems = (cartItemId, userId) => {
 
     return async (dispatch) => {
         try {
-            const response = await axios.patch(API_BASE_URL + "user/cartitems/", cartItemsData);
+            const response = await axios.patch(API_BASE_URL + "user/cartitems/", cartItemsData, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
             const userFromLocalStorage = localStorage.getItem('user');
             if (userFromLocalStorage !== "undefined") {
                 localStorage.setItem('user', JSON.stringify(response.data));
