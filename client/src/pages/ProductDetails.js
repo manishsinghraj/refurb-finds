@@ -4,6 +4,7 @@ import StarRating from '../components/home/StarRating';
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from '../redux/cart/cartActions';
 import { postCartItems } from '../redux/cart/cartReducer';
+import { toastNotify } from '../redux/toast/toastActions';
 
 
 export const ProductDetails = () => {
@@ -22,6 +23,7 @@ export const ProductDetails = () => {
             navigate('/signin');
         } else {
             dispatch(addToCart(product._id));
+            dispatch(toastNotify('Added to Cart', 'info'));
             dispatch(postCartItems(product._id, userDetails.user._id));
         }
     }

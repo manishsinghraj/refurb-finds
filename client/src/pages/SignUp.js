@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { FormInputs } from '../components/sign/FormInputs';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { registerUser } from '../redux/user/userReducer';
-import { Error } from '../components/utils/Error';
+import { clearError, registerUser } from '../redux/user/userReducer';
+import 'react-toastify/dist/ReactToastify.css';
+import { toastNotify } from '../redux/toast/toastActions';
 
 export const SignUp = () => {
 
@@ -75,9 +76,17 @@ export const SignUp = () => {
 
     useEffect(() => {
         if (!error && userDetails) { // If there's no error and user exists
-            navigate('/home');
+            dispatch(toastNotify('Account Created', 'success'));
+            setTimeout(() => {
+                navigate('/home');
+            }, 2000)
+        } else {
+            if (error) {
+                dispatch(toastNotify(error, 'error'));
+                dispatch(clearError());
+            }
         }
-    }, [error, userDetails, navigate]);
+    }, [error, userDetails, navigate, dispatch]);
 
     const handleRegisterUser = (e) => {
         e.preventDefault();

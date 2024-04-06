@@ -3,6 +3,7 @@ import { MdDelete } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { removeCartItem, updateCartItemQuantity } from '../../redux/cart/cartActions';
 import { postCartItems, removeCartItems } from '../../redux/cart/cartReducer';
+import { toastNotify } from '../../redux/toast/toastActions';
 
 export const CartCard = ({ item }) => {
 
@@ -17,6 +18,7 @@ export const CartCard = ({ item }) => {
 
     const handleRemoveCartItem = () => {
         dispatch(removeCartItem(item._id));
+        dispatch(toastNotify('Removed from Cart', 'info'));
         dispatch(removeCartItems(item._id, userDetails.user._id));
     }
 

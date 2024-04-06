@@ -3,7 +3,7 @@
 
 # Package installation
 
-`npm i axios redux react-redux redux-thunk react-router-dom @redux-devtools/extension react-helmet react-icons react-slick slick-carousel @stripe/stripe-js`
+`npm i axios redux react-redux redux-thunk react-router-dom @redux-devtools/extension react-helmet react-icons react-slick slick-carousel @stripe/stripe-js react-toastify`
 
 <hr>
 

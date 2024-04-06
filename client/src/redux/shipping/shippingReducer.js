@@ -41,6 +41,8 @@ export const shippingReducer = (state = initialState, action) => {
 
 
 export const postShippingDetails = () => {
+    const token = JSON.parse(localStorage.getItem('token'));
+    
     return async (dispatch, getState) => {
         try {
             const state = getState();
@@ -51,7 +53,11 @@ export const postShippingDetails = () => {
                 shippingInfo: shippingInfo,
                 userId: userDetails.user._id
             }
-            const response = await axios.post(API_BASE_URL + "checkout/shippingdetails", shippingData);
+            const response = await axios.post(API_BASE_URL + "checkout/shippingdetails", shippingData, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
             localStorage.setItem('shippingInfo', JSON.stringify(response.data.shippingInfo));
             console.log("shippingdata posted successfully");
         } catch (error) {
@@ -61,13 +67,19 @@ export const postShippingDetails = () => {
 };
 
 export const getSavedShippingInfo = () => {
+    const token = JSON.parse(localStorage.getItem('token'));
+    
     return async (dispatch, getState) => {
         try {
             const state = getState();
             const userDetails = state.userDetails.userDetails;
             const userId = userDetails.user._id;
 
-            const response = await axios.get(API_BASE_URL + `checkout/getshippingdetails?userId=${userId}`);
+            const response = await axios.get(API_BASE_URL + `checkout/getshippingdetails?userId=${userId}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
             localStorage.setItem("shippingInfo", JSON.stringify(response.data.shippingInfo));
             dispatch(saveShippingInfo(response.data.shippingInfo));
             console.log("shippingdata retrived successfully");
@@ -78,6 +90,8 @@ export const getSavedShippingInfo = () => {
 }
 
 export const placeCodOrder = () => {
+    const token = JSON.parse(localStorage.getItem('token'));
+    
     return async (dispatch, getState) => {
         try {
             const state = getState();
@@ -105,7 +119,11 @@ export const placeCodOrder = () => {
                 }
             }
 
-            const response = await axios.post(API_BASE_URL + "order/placecodorder", orderData);
+            const response = await axios.post(API_BASE_URL + "order/placecodorder", orderData, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
             console.log("cod order placed successfully");
             return response;
 
@@ -116,31 +134,42 @@ export const placeCodOrder = () => {
     }
 }
 
-export const makePayment = async (cartDetails, userId, amount ) => {
-    const stripe = await loadStripe(process.env.REACT_APP_STRIPE_PK_KEY);
+export const makePayment = async (cartDetails, userId, amount) => {
+    try {
+        const token = JSON.parse(localStorage.getItem('token'));
 
-    const body = {
-        products: cartDetails,
-        userId: userId,
-        amount: amount
+        const stripe = await loadStripe(process.env.REACT_APP_STRIPE_PK_KEY);
+
+        const body = {
+            products: cartDetails,
+            userId: userId,
+            amount: amount
+        }
+
+        const response = await fetch(API_BASE_URL + "checkout/makepayment", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(body)
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to make payment');
+        }
+
+        const session = await response.json();
+
+        const result = await stripe.redirectToCheckout({
+            sessionId: session.id
+        })
+
+        if (result.error) {
+            throw new Error(result.error.message);
+        }
+    } catch (error) {
+        console.error('Error making payment:', error.message);
     }
-
-    const response = await fetch(API_BASE_URL + "checkout/makepayment", {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(body)
-    });
-
-    const session = await response.json();
-
-    const result = stripe.redirectToCheckout({
-        sessionId: session.id
-    })
-
-    if (result.error) {
-        console.log(result.error)
-    }
-}   
+}
 

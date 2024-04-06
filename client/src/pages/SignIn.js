@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { FormInputs } from '../components/sign/FormInputs';
 import { NavLink, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
-import { signUser } from '../redux/user/userReducer';
+import { clearError, signUser } from '../redux/user/userReducer';
+import { toastNotify } from '../redux/toast/toastActions';
 
 export const SignIn = () => {
 
@@ -37,15 +38,22 @@ export const SignIn = () => {
       label: "Password",
       required: true,
     },
-
   ]
 
   useEffect(() => {
     if (!error && userDetails) {
-      navigate('/home');
-      window.location.reload(); // need to refresh page
+      dispatch(toastNotify('Login Successful!', 'success'));
+      setTimeout(() => {
+        navigate('/home');
+        window.location.reload(); // need to refresh page
+      }, 2000)
+    } else {
+      if (error) {
+        dispatch(toastNotify(error, 'error'));
+        dispatch(clearError());
+      }
     }
-  }, [error, userDetails, navigate]);
+  }, [error, userDetails, navigate, dispatch]);
 
 
   const handleSubmit = (e) => {
@@ -79,7 +87,7 @@ export const SignIn = () => {
               <FormInputs key={input.id} {...input} value={values[input.name]} onChange={onChange}></FormInputs>
             ))}
             <button className='submit-btn'>{isLoading ? "Loading..." : "Submit"}</button>
-            {error && <span className='credential-error'>{error}</span>}
+            {/* {error && <span className='credential-error'>{error}</span>} */}
             <hr />
             <div className='create-account'>
               <span className='create-account-span'>New to RefurbFinds?</span>

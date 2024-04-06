@@ -46,7 +46,7 @@ export const likeReducer = (state = initialState, action) => {
 //TODO:Debouncing 
 
 export const postLikeItems = (likedProductId, userId) => {
-
+    const token = JSON.parse(localStorage.getItem('token'));
     const likeItemsData = {
         likedProductId: likedProductId,
         userId: userId
@@ -54,7 +54,11 @@ export const postLikeItems = (likedProductId, userId) => {
 
     return async (dispatch) => {
         try {
-            const response = await axios.post(API_BASE_URL + "user/likeitems/", likeItemsData);
+            const response = await axios.post(API_BASE_URL + "user/likeitems/", likeItemsData, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
 
             const userFromLocalStorage = localStorage.getItem('user');
             if (userFromLocalStorage !== "undefined") {
@@ -69,15 +73,19 @@ export const postLikeItems = (likedProductId, userId) => {
 
 
 export const removeLikeItems = (likedProductId, userId) => {
-
-    const likeItemsData = {
+    const token = JSON.parse(localStorage.getItem('token'));
+        const likeItemsData = {
         likedProductId: likedProductId,
         userId: userId
     };
 
     return async (dispatch) => {
         try {
-            const response = await axios.patch(API_BASE_URL + "user/likeitems/", likeItemsData);
+            const response = await axios.patch(API_BASE_URL + "user/likeitems/", likeItemsData, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
 
             const userFromLocalStorage = localStorage.getItem('user');
             if (userFromLocalStorage !== "undefined") {

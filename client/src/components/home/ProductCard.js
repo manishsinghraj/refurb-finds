@@ -5,6 +5,7 @@ import { FaRegHeart, FaHeart } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToLike, removeFromLike } from '../../redux/like/likeAction';
 import { postLikeItems, removeLikeItems } from '../../redux/like/likeReducer';
+import { toastNotify } from '../../redux/toast/toastActions';
 
 export const ProductCard = ({ product }) => {
     const dispatch = useDispatch();
@@ -27,9 +28,11 @@ export const ProductCard = ({ product }) => {
         } else {
             if (!isLiked) {
                 dispatch(addToLike(product._id));
+                dispatch(toastNotify('Added to Like', 'info'));
                 dispatch(postLikeItems(product._id, userDetails.user._id));
             } else {
                 dispatch(removeFromLike(product._id));
+                dispatch(toastNotify('Removed from Like', 'info'));
                 dispatch(removeLikeItems(product._id, userDetails.user._id));
             }
             setIsLiked(!isLiked);
