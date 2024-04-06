@@ -41,9 +41,9 @@
 
     &__mid {
         min-width: 30%;
-        // margin-right: 10px;
         display: flex;
         flex-wrap: wrap;
+        flex-direction: column;
 
         &__logo {
             display: flex;
