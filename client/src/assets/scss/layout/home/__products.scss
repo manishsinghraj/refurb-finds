@@ -17,6 +17,10 @@
             font-size: 30px;
         }
 
+        div:first-child {
+            margin: auto;
+        }
+        
         &-card {
             display: flex;
             flex-direction: column;
