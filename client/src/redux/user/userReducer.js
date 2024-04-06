@@ -92,19 +92,19 @@ export const registerUser = (userData) => {
             localStorage.setItem('user', JSON.stringify(newUser));
             localStorage.setItem('token', JSON.stringify(newUser?.token));
         } catch (error) {
-            let errorMessage;
+            let errorMessage = "Something went wrong";
+
             if (error?.response?.data?.message?.code === 11000) {
                 errorMessage = "Phone number already exists!";
-            } else {
-                errorMessage = error?.response?.data?.message;
-                if (typeof errorMessage === 'object') {
-                    errorMessage = "Something went wrong";
-                }
+            } else if (error?.response?.data?.message) {
+                errorMessage = error.response.data.message;
+            } else if (error?.message) {
+                errorMessage = error.message;
             }
 
-            console.log("errorMessage", errorMessage)
             dispatch(registerUserFailure(errorMessage));
         }
+
     };
 };
 
@@ -129,6 +129,12 @@ export const signUser = (userData) => {
             console.log("errorMessage", errorMessage)
             dispatch(signInUserFailure(errorMessage));
         }
+    }
+}
+
+export const clearError = () => {
+    return (dispatch ) => {
+        dispatch(signInUserFailure(null));
     }
 }
 

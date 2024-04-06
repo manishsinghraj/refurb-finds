@@ -8,6 +8,7 @@ import { filterReducer } from './filters/filterReducer';
 import { likeReducer } from './like/likeReducer';
 import userReducer from './user/userReducer';
 import { shippingReducer } from './shipping/shippingReducer';
+import { toastReducer } from './toast/toastReducer';
 
 // Combine your reducers here
 const rootReducer = combineReducers({
@@ -17,7 +18,8 @@ const rootReducer = combineReducers({
     data: dataReducer,
     like: likeReducer,
     userDetails : userReducer,
-    shipping : shippingReducer
+    shipping : shippingReducer,
+    toast : toastReducer
 });
 
 
